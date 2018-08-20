@@ -24,15 +24,16 @@ int main(void)
 	fflush(stdout);
 		
 	//Get input
-	fgets(input, MAX_LINE, stdin);
-	//input[strcspn(input, "\n")] = '\0';
+	fgets(input, sizeof input, stdin);
+	char *tok = strtok(input, " ")
 
-	//Parse input
-	parse_input(strdup(input));
     for (i = 0; i < num_args; i++)
 	{
+		args[0] = tok;
+		tok = strtok(NULL, " ");
 		printf("\nAt position: %d, \t %s", i, args[i]);
 		fflush(stdout);
+		i++;
 	}
 
 }
@@ -54,7 +55,7 @@ int parse_input (char userInput[MAX_LINE]){
 		printf("\n%d", i);
 		printf("\n%s", command);
 		fflush(stdout);
-		i++
+		i++;
 	}
 
     num_args = counter;	
