@@ -27,9 +27,9 @@ int main(void)
 	fgets(input, sizeof input, stdin);
 	char *tok = strtok(input, " ")
 
-    for (i = 0; i < num_args; i++)
+    while (tok != NULL)
 	{
-		args[0] = tok;
+		args[i] = tok;
 		tok = strtok(NULL, " ");
 		printf("\nAt position: %d, \t %s", i, args[i]);
 		fflush(stdout);
