@@ -8,14 +8,14 @@
 #define MAX_LINE    80
 #define MAX_ARGS    MAX_LINE/2+1
 
-
-
+char *args[MAX_ARGS];
 int num_args;
+
 char * parse_input(char * line);//Parse user input
 
 int main(void)
 {
-    char *args[MAX_ARGS];
+    
     char input[MAX_LINE];
     int should_run = 1;
 
@@ -27,7 +27,7 @@ int main(void)
 	input[strcspn(input, "\n")] = '\0';
 
 	//Parse input
-	args = parse_input(strdup(input));
+	parse_input(strdup(input));
     int i;
     for (i = 0; i < num_args; i++)
 	{
@@ -38,10 +38,7 @@ int main(void)
 
 
 //Returns array with the input parsed out
-char * parse_input (char * userInput){
-	
-	// Will be assigned to args
-	char *commands = (char*) malloc(sizeof(char*) * (10));
+int parse_input (char * userInput){
 	
 	char *command; 
 	int counter = 0;
@@ -49,7 +46,7 @@ char * parse_input (char * userInput){
 
 	for(counter = 0; counter < 41; counter++)
 	{
-		commands[counter] = NULL;
+		args[counter] = NULL;
 	}	
 	
 	counter = 0;
@@ -57,13 +54,13 @@ char * parse_input (char * userInput){
 	//
 	while(command!= NULL)
 	{
-		commands[counter] = command;
+		args[counter] = command;
 		command = strtok(NULL, " ");
 		counter++;
 	}
 
 	counter--;
+    num_args = counter;	
 
-    num_args = counter;
-	return commands;		
+	return 0;	
 }
