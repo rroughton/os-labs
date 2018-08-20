@@ -11,7 +11,7 @@
 char *args[MAX_ARGS];
 int num_args;
 
-int parse_input(char * line);//Parse user input
+int parse_input(char line[MAX_ARGS]);//Parse user input
 
 int main(void)
 {
@@ -24,7 +24,7 @@ int main(void)
 		
 	//Get input
 	fgets(input, MAX_LINE, stdin);
-	input[strcspn(input, "\n")] = '\0';
+	//input[strcspn(input, "\n")] = '\0';
 
 	//Parse input
 	parse_input(strdup(input));
@@ -41,28 +41,21 @@ int main(void)
 
 
 //Returns array with the input parsed out
-int parse_input (char * userInput){
+int parse_input (char userInput[MAX_LINE]){
 	
 	char *command; 
 	int counter = 0;
+	int i = 0;
+
 	command = strtok(userInput, " ");
-
-	for(counter = 0; counter < 41; counter++)
-	{
-		args[counter] = NULL;
-	}	
 	
-	counter = 0;
-
-	//
-	while(command!= NULL)
+	while (command != NULL)
 	{
-		args[counter] = command;
+		args[i] = command;
 		command = strtok(NULL, " ");
-		counter++;
+		i++;
 	}
 
-	counter--;
     num_args = counter;	
 
 	return 0;	
