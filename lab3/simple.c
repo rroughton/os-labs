@@ -11,7 +11,7 @@
 char *args[MAX_ARGS];
 int num_args;
 
-char * parse_input(char * line);//Parse user input
+int parse_input(char * line);//Parse user input
 
 int main(void)
 {
