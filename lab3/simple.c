@@ -75,8 +75,9 @@ int set_flags()
 		flags[1] = 0;
 	}
 
-	char firstString[strlen(args[0])] = args[0];
-	if ( strcmp(firstString[(strlen(firstString)-1)]), "!") == 0)
+	char first_string[strlen(args[0])];
+	first_string = args[0];
+	if ( strcmp(first_string[(strlen(first_string)-1)], "!") == 0)
 	{
 		printf("\nExecute history command");
 		fflush(stdout);
