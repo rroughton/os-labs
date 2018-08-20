@@ -50,6 +50,9 @@ int main(void)
 
 int set_flags()
 {
+	printf("\nargs[0]: %s", args[0]);
+	fflush(stdout);
+	fflush(stdout);
 	if (strcmp(args[0], "exit") == 0)
 	{ 
 		printf("\nExiting program");
