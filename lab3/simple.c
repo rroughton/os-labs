@@ -12,6 +12,12 @@ char *args[MAX_ARGS];
 int num_args;
 int flags[10];
 
+struct history_element
+{
+	char *full_command[];
+	int number;
+}
+
 int set_flags(void);
 int run_args(void);
 
