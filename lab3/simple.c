@@ -18,6 +18,7 @@ int main(void)
     
     char input[MAX_LINE];
     int should_run = 1;
+    int i;
 
     printf("\nrrsh>");
 	fflush(stdout);
@@ -28,9 +29,6 @@ int main(void)
 
 	//Parse input
 	parse_input(strdup(input));
-    int i;
-	printf("\nAt position: %d, \t %s", 0, args[]);
-		fflush(stdout);
     for (i = 0; i < num_args; i++)
 	{
 		printf("\nAt position: %d, \t %s", i, args[i]);
@@ -53,6 +51,9 @@ int parse_input (char userInput[MAX_LINE]){
 	{
 		args[i] = command;
 		command = strtok(NULL, " ");
+		printf("\n%d", i);
+		printf("\n%s", command);
+		fflush(stdout);
 		i++;
 	}
 
