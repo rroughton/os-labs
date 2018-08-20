@@ -14,7 +14,7 @@ int flags[10];
 
 struct history_element
 {
-	char *full_command[];
+	char *full_command[MAX_ARGS;
 	int number;
 }
 
