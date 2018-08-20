@@ -76,7 +76,7 @@ int set_flags()
 	}
 
 	char first_string[strlen(args[0])];
-	first_string = args[0];
+	strcpy(first_string,args[0]);
 	if ( strcmp(first_string[(strlen(first_string)-1)], "!") == 0)
 	{
 		printf("\nExecute history command");
