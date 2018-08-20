@@ -18,7 +18,7 @@ int main(void)
     
     char input[MAX_LINE];
     int should_run = 1;
-    int i;
+    int i = 0;
 
     printf("\nrrsh>");
 	fflush(stdout);
