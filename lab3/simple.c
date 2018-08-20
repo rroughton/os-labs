@@ -29,9 +29,12 @@ int main(void)
 	//Parse input
 	parse_input(strdup(input));
     int i;
+	printf("\nAt position: %d, \t %s", 0, args[]);
+		fflush(stdout);
     for (i = 0; i < num_args; i++)
 	{
 		printf("\nAt position: %d, \t %s", i, args[i]);
+		fflush(stdout);
 	}
 
 }
