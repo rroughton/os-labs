@@ -49,11 +49,12 @@ int parse_input (char userInput[MAX_LINE]){
 	
 	while (command != NULL)
 	{
-		args[i++] = command;
+		args[i] = command;
 		command = strtok(NULL, " ");
 		printf("\n%d", i);
 		printf("\n%s", command);
 		fflush(stdout);
+		i++
 	}
 
     num_args = counter;	
