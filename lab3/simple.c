@@ -29,7 +29,10 @@ int main(void)
 	//Parse input
 	args = parse_input(strdup(input));
     int i;
-    for (i = 0; i < )
+    for (i = 0; i < num_args; i++)
+	{
+		printf("\nAt position: %d, \t %s", i, args[i]);
+	}
 
 }
 
@@ -60,11 +63,6 @@ char * parse_input (char * userInput){
 	}
 
 	counter--;
-	// checks if & was the last input
-	if (strcmp(commands[counter], "&") != 0)
-	{
-		doRunInBG == 1;
-	}
 
     num_args = counter;
 	return commands;		
