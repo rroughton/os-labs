@@ -25,10 +25,12 @@ int main(void)
 		
 	//Get input
 	fgets(input, sizeof input, stdin);
-	char *tok = strtok(input, " ")
+	char *tok = strtok(input, " ");
 
     while (tok != NULL)
 	{
+		printf("At %d", i);
+		fflush(stdout);
 		args[i] = tok;
 		tok = strtok(NULL, " ");
 		printf("\nAt position: %d, \t %s", i, args[i]);
