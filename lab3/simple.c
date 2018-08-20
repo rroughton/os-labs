@@ -10,8 +10,10 @@
 
 char *args[MAX_ARGS];
 int num_args;
+int flags[10];
 
-int parse_input(char line[MAX_ARGS]);//Parse user input
+int set_flags(void);
+int run_args(void);
 
 int main(void)
 {
@@ -20,47 +22,73 @@ int main(void)
     int should_run = 1;
     int i = 0;
 
-    printf("\nrrsh>");
-	fflush(stdout);
-		
-	//Get input
-	fgets(input, sizeof input, stdin);
-	char *tok = strtok(input, " ");
-
-    while (tok != NULL)
+	while (should_run)
 	{
-		printf("At %d", i);
+		printf("\nrrsh>");
 		fflush(stdout);
-		args[i] = tok;
-		tok = strtok(NULL, " ");
-		printf("\nAt position: %d, \t %s", i, args[i]);
-		fflush(stdout);
-		i++;
-	}
+			
+		//Get input
+		fgets(input, sizeof input, stdin);
+		char *tok = strtok(input, " ");
 
+		while (tok != NULL)
+		{
+			args[i] = tok;
+			tok = strtok(NULL, " ");
+			i++;
+		}
+		num_args = i;
+
+		should_run = set_flags();
+		if (should_run)
+		{
+			run_args();
+		}
+	}
+	return 0;
 }
 
-
-//Returns array with the input parsed out
-int parse_input (char userInput[MAX_LINE]){
-	
-	char *command; 
-	int counter = 0;
-	int i = 0;
-
-	command = strtok(userInput, " ");
-	
-	while (command != NULL)
-	{
-		args[i] = command;
-		command = strtok(NULL, " ");
-		printf("\n%d", i);
-		printf("\n%s", command);
+int set_flags()
+{
+	if (strcmp(args[0], "exit") == 0)
+	{ 
+		printf("\nExiting program");
 		fflush(stdout);
-		i++;
+		return 0; // change should_run to 0
 	}
 
-    num_args = counter;	
+	if (strcmp(args[0], "history") == 0)
+	{
+		printf("\nDo History");
+		fflush(stdout);
+		flags[0] = 1;
+	} else {
+		flags[0] = 0;
+	}
 
-	return 0;	
+	if (strcmp(args[num_args - 1], "&") == 0)
+	{
+		printf("\nRun in Background");
+		fflush(stdout);
+		flags[1] = 1;
+	} else {
+		flags[1] = 0;
+	}
+
+	char firstString[strlen(args[0])] = args[0];
+	if ( strcmp(firstString[(strlen(firstString)-1)]), "!") == 0)
+	{
+		printf("\nExecute history command");
+		fflush(stdout);
+		flags[2] = 1;
+	} else {
+		flags[2] = 0;
+	}
+
+	return 1;
+}
+
+int run_args(void)
+{
+
 }
