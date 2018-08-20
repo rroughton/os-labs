@@ -77,7 +77,8 @@ int set_flags()
 
 	char first_string[strlen(args[0])];
 	strcpy(first_string,args[0]);
-	if ( strcmp(first_string[(strlen(first_string)-1)], "!") == 0)
+	char last_char = first_string[strlen(first_string)-1];
+	if ( strcmp(last_char, "!") == 0)
 	{
 		printf("\nExecute history command");
 		fflush(stdout);
