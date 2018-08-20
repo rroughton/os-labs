@@ -53,14 +53,14 @@ int set_flags()
 	printf("\nargs[0]: %s", args[0]);
 	fflush(stdout);
 	fflush(stdout);
-	if (strcmp(args[0], "exit") == 0)
+	if (strcmp(args[0], "exit\n") == 0)
 	{ 
 		printf("\nExiting program");
 		fflush(stdout);
 		return 0; // change should_run to 0
 	}
 
-	if (strcmp(args[0], "history") == 0)
+	if (strcmp(args[0], "history\n") == 0)
 	{
 		printf("\nDo History");
 		fflush(stdout);
@@ -69,7 +69,7 @@ int set_flags()
 		flags[0] = 0;
 	}
 
-	if (strcmp(args[num_args - 1], "&") == 0)
+	if (strcmp(args[num_args - 1], "&\n") == 0)
 	{
 		printf("\nRun in Background");
 		fflush(stdout);
