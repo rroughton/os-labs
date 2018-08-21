@@ -35,11 +35,16 @@ int num_history;
 char *args[MAX_ARGS];
 int num_args;
 int flags[10];
+char *done_strs[MAX_ARGS];
+int num_done_strs = 0;
 
 
 
 int set_flags(void);
 int run_args(void);
+int execute(void);
+void handle_done_background(void);
+void print_done(void)
 
 int main(void)
 {
@@ -162,50 +167,46 @@ int handle_parent(pid_t child, pid_t wpid)
 	}
 }
 
+// goes down child path
 int handle_child()
 {
 	// Handles issues with executing the child arguments
 	if(execvp(args[0], args) == -1){
-			printf("\nChildBroke");			
+			printf("\nChild isn't working");			
 			return 0;
 		}	
 	exit(EXIT_FAILURE);
 }
 
-//handle exit signal from background processes
-void sighandler()
+// Creates the string for a done process
+void handle_done_background()
 {
     int status = 0; //status of exit
     pid_t wpid; //pid of exiting process
 
     wpid = waitpid(-1, &status, WNOHANG);
 
-    if (wpid > 0){ //if -1, it is not a background process
-        char str[100]; //string to output
+    if (wpid > 0){
+        char str[100];
         int i;       
 
-        for (i = 0; i < num_background; i++) //check which background process ended
+        for (i = 0; i < num_background; i++)
         {
-            if (pid_bg[i] == wpid){
+            if (background_list[i].pid == wpid){
                 break;
             }
         }
 
-        sprintf(str, "[%d]    Done    %s\n", back_num[i], command_names[i]); 
-        strcpy(output[output_index], str); //copy string so it can be printed
-        output_index++; //increment index
+        sprintf(str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
+        strcpy(output[output_index], str);
+        num_done_strs++;
 
-        remove_bg_elem(wpid); //remove pid from list 
-
-        if (pid_bg[0] == 0)
-        {
-            num_bg = 0; //reset background process number
-        }     
+		// Fixes array since element needs to be removed
+        remove_bg_elem(wpid);   
     }
 }
 
-//remove element
-
+// reorders list after one background element finishes
 void remove_bg_elem(pid_t pid)
 {
     int i;
@@ -216,33 +217,25 @@ void remove_bg_elem(pid_t pid)
     {
         if (background_list[i].pid == pid)
         {
-            if (i == num_background -1 ){ // at end of list
-                num_background--; // one fewer element
-                background_list[i] = NULL; //empty list at index
-            }
-            else{ 
-                while(i < num_background)
-				{
-					// shuffle everything over one
-                    background_list[i] = background_list[i+1];
-                    i++;
-                }
-                num_background--;
-             }        
+            while(i < num_background)
+			{
+				// shuffle everything over one
+				background_list[i] = background_list[i+1];
+				i++;
+			}
+			num_background--;      
         }
     }
     return;
 }
 
-//print that background processes are done
+// basic print method for dealing with background processes as they finish
 void print_done()
 {
     int i;
-
-    for(i = 0; i < output_index; i++) //print all done processes
+    for(i = 0; i < num_done_strs; i++)
     {
-        printf("%s", output[i]);
+        printf("%s", done_strs[i]);
     } 
-
-    output_index = 0; //reset index, since all are printed
+    num_done_strs = 0;
 }
