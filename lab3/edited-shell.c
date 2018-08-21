@@ -44,7 +44,7 @@ int set_flags(void);
 int run_args(void);
 int execute(void);
 void handle_done_background(void);
-void print_done(void)
+void print_done(void);
 
 int main(void)
 {
