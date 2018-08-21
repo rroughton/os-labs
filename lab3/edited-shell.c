@@ -54,15 +54,18 @@ int main(void)
     int should_run = 1;
     int i = 0;
 
+	
+	for(i = 0; i < MAX_ARGS; i++)
+	{
+		args[i] = NULL; // makes sure array is null-terminated so execvp works
+	}
+
+
 	while (should_run)
 	{
 		printf("\nrrsh>");
 		fflush(stdout);
-		int i = 0;
-		for(i = 0; i < MAX_ARGS; i++)
-		{
-			args[i] = NULL; // makes sure array is null-terminated so execvp works
-		}
+
 			
 		//Get input
 		fgets(input, sizeof input, stdin);
@@ -91,7 +94,6 @@ int main(void)
 int set_flags()
 {
 	printf("\nargs[0]: %s", args[0]);
-	fflush(stdout);
 	fflush(stdout);
 	if (strcmp(args[0], "exit\n") == 0)
 	{ 
