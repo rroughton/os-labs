@@ -54,12 +54,10 @@ int main(void)
     int should_run = 1;
     int i = 0;
 
-	
-	for(i = 0; i < MAX_ARGS; i++)
-	{
-		args[i] = NULL; // makes sure array is null-terminated so execvp works
-	}
-
+	// for(i = 0; i < MAX_ARGS; i++)
+	// {
+	// 	args[i] = NULL; // makes sure array is null-terminated so execvp works
+	// }
 
 	while (should_run)
 	{
@@ -77,6 +75,7 @@ int main(void)
 			tok = strtok(NULL, " ");
 			i++;
 		}
+		args[i] = '\0';
 		num_args = i;
 
 		should_run = set_flags();
