@@ -18,7 +18,7 @@ struct history_element
 {
 	char *full_command[MAX_ARGS];
 	int number;
-} history_element
+} history_element;
 
 struct background_element
 {
