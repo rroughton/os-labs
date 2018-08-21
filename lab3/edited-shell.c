@@ -12,15 +12,15 @@
 
 #define MAX_LINE    80
 #define MAX_ARGS    MAX_LINE/2+1
-#define MAX_BG		10;
+#define MAX_BG		10
 
-typedef struct history_element
+struct history_element
 {
 	char *full_command[MAX_ARGS];
 	int number;
 } history_element;
 
-typedef struct background_element
+struct background_element
 {
 	pid_t pid;
 	int number;
