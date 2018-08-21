@@ -83,8 +83,6 @@ int main(void)
 		should_run = set_flags();
 		if (should_run)
 		{
-			printf("args at 0 : %s", args[0]);
-			fflush(stdout);
 			run_args();
 		}
 	}
@@ -94,8 +92,7 @@ int main(void)
 // sets flags for special characters in input
 int set_flags()
 {
-	printf("\nargs[0]: %s", args[0]);
-	fflush(stdout);
+
 	if (strcmp(args[0], "exit\n") == 0)
 	{ 
 		printf("\nExiting program");
@@ -105,7 +102,6 @@ int set_flags()
 
 	if (strcmp(args[0], "history\n") == 0)
 	{
-		printf("\nDo History");
 		fflush(stdout);
 		flags[0] = 1;
 	} else {
@@ -114,7 +110,6 @@ int set_flags()
 
 	if (strcmp(args[num_args - 1], "&\n") == 0)
 	{
-		printf("\nRun in Background");
 		fflush(stdout);
 		args[num_args-1] = NULL;
 		flags[1] = 1;
@@ -127,7 +122,6 @@ int set_flags()
 	char last_char = first_string[strlen(first_string)-2];
 	if ( last_char == '!')
 	{
-		printf("\nExecute history command");
 		fflush(stdout);
 		flags[2] = 1;
 	} else {
@@ -166,6 +160,8 @@ int execute()
 int run_parent(pid_t child, pid_t wpid)
 {
 	int status; // Used to keep track of status for waitpid()
+	int i;
+	
 	if(flags[1])
 	{
 		num_background++;
@@ -173,7 +169,6 @@ int run_parent(pid_t child, pid_t wpid)
 		background_list[num_background-1] = bg_elem;
 		printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
 
-		int i;
     	for(i = 0; i < num_done_strs; i++)
     	{
     	    printf("%s", done_strs[i]);
@@ -191,10 +186,6 @@ int run_parent(pid_t child, pid_t wpid)
 // goes down child path
 int run_child()
 {
-	printf("\nchild args at 0 : %s", args[0]);
-	fflush(stdout);
-	printf("args at 1 : %s", args[1]);
-			fflush(stdout);
 	if(execvp(args[0], args) == -1){
 		printf("\nChild isn't working");			
 		return 0;
