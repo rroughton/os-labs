@@ -67,19 +67,15 @@ int main(void)
 			
 		//Get input
 		fgets(input, sizeof input, stdin);
-		int len;
-		len = strlen(args);
-		if (len > 0 && args[len-1] == '\n') {
-			args[len-1] = '\0';
-		}
 		char *tok = strtok(input, " ");
 
 		while (tok != NULL)
 		{
 			args[i] = tok;
-			tok = strtok(NULL, " ");
 			i++;
+			tok = strtok(NULL, " ");
 		}
+		args[i] = NULL;
 
 		num_args = i;
 
