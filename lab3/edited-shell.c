@@ -74,6 +74,8 @@ int main(void)
 		should_run = set_flags();
 		if (should_run)
 		{
+			printf("args at 0 : %s", args[0]);
+			fflush(stdout);
 			run_args();
 		}
 	}
