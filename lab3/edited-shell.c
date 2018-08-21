@@ -44,6 +44,8 @@ int execute(void);
 void handle_done_background(void);
 void print_done(void);
 void remove_bg_elem(pid_t pid);
+int run_parent(pid_t child, pid_t wpid);
+int run_child(void);
 
 int main(void)
 {
@@ -56,6 +58,11 @@ int main(void)
 	{
 		printf("\nrrsh>");
 		fflush(stdout);
+		int i = 0;
+		for(i = 0; i < MAX_ARGS; i++)
+		{
+			args[i] = NULL; // makes sure array is null-terminated so execvp works
+		}
 			
 		//Get input
 		fgets(input, sizeof input, stdin);
@@ -80,6 +87,7 @@ int main(void)
 	return 0;
 }
 
+// sets flags for special characters in input
 int set_flags()
 {
 	printf("\nargs[0]: %s", args[0]);
@@ -133,6 +141,7 @@ int run_args(void)
 
 }
 
+// fork argument and go through child and parent code
 int execute()
 {
 	pid_t child, wpid;
@@ -141,17 +150,17 @@ int execute()
 
 	if(child == 0){
 	//if is child
-		handle_child();
+		run_child();
 	}
 	else {
 	//if is parent
-		handle_parent(child, wpid);	
+		run_parent(child, wpid);	
 	}
 	return 1;
 }
 
 // goes through parent path
-int handle_parent(pid_t child, pid_t wpid)
+int run_parent(pid_t child, pid_t wpid)
 {
 	int status; // Used to keep track of status for waitpid()
 	if(flags[1])
@@ -160,17 +169,24 @@ int handle_parent(pid_t child, pid_t wpid)
 		struct background_element bg_elem = { .pid = child, .number = num_background, .full_command = args};
 		background_list[num_background-1] = bg_elem;
 		printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
-		print_done(); 
+
+		int i;
+    	for(i = 0; i < num_done_strs; i++)
+    	{
+    	    printf("%s", done_strs[i]);
+    	} 
+    	num_done_strs = 0;
+
 	} else {
 		do{
-			// uses the waitpid method to wait for the child process to finish
+			// wait for child to finish
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 }
 
 // goes down child path
-int handle_child()
+int run_child()
 {
 	int i = 0;
 	printf("\nchild args at 0 : %s", args[0]);
@@ -244,10 +260,5 @@ void remove_bg_elem(pid_t pid)
 // basic print method for dealing with background processes as they finish
 void print_done()
 {
-    int i;
-    for(i = 0; i < num_done_strs; i++)
-    {
-        printf("%s", done_strs[i]);
-    } 
-    num_done_strs = 0;
+
 }
