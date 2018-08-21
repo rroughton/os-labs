@@ -38,8 +38,6 @@ int flags[10];
 char *done_strs[MAX_ARGS];
 int num_done_strs = 0;
 
-
-
 int set_flags(void);
 int run_args(void);
 int execute(void);
@@ -175,6 +173,10 @@ int handle_parent(pid_t child, pid_t wpid)
 int handle_child()
 {
 	int i = 0;
+	printf("\nchild args at 0 : %s", args[0]);
+			fflush(stdout);
+	printf("args at 1 : %s", args[1]);
+			fflush(stdout);
 	// Handles issues with executing the child arguments
 	for (i = 0; i < num_args; i++)
 	{
