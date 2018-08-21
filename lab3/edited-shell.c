@@ -198,7 +198,7 @@ void handle_done_background()
         }
 
         sprintf(str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
-        strcpy(output[output_index], str);
+        strcpy(done_strs[num_done_strs], str);
         num_done_strs++;
 
 		// Fixes array since element needs to be removed
