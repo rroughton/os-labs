@@ -171,7 +171,13 @@ int handle_parent(pid_t child, pid_t wpid)
 // goes down child path
 int handle_child()
 {
+	int i = 0;
 	// Handles issues with executing the child arguments
+	for (i = 0; i < num_args; i++)
+	{
+		args[i];
+	}
+
 	if(execvp(args[0], args) == -1){
 			printf("\nChild isn't working");			
 			return 0;
