@@ -190,21 +190,14 @@ int run_parent(pid_t child, pid_t wpid)
 // goes down child path
 int run_child()
 {
-	int i = 0;
 	printf("\nchild args at 0 : %s", args[0]);
-			fflush(stdout);
+	fflush(stdout);
 	printf("args at 1 : %s", args[1]);
 			fflush(stdout);
-	// Handles issues with executing the child arguments
-	for (i = 0; i < num_args; i++)
-	{
-		args[i];
-	}
-
 	if(execvp(args[0], args) == -1){
-			printf("\nChild isn't working");			
-			return 0;
-		}	
+		printf("\nChild isn't working");			
+		return 0;
+	}	
 	exit(EXIT_FAILURE);
 }
 
