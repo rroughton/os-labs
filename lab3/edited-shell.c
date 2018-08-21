@@ -18,14 +18,14 @@ struct history_element
 {
 	char *full_command[MAX_ARGS];
 	int number;
-} history_element;
+};
 
 struct background_element
 {
 	pid_t pid;
 	int number;
 	char *full_command[MAX_ARGS];
-} background_element;
+};
 
 struct history_element history_list[10];
 struct background_element background_list[MAX_BG];
