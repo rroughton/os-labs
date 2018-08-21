@@ -104,6 +104,7 @@ int set_flags()
 	{
 		printf("\nRun in Background");
 		fflush(stdout);
+		args[num_args-1] = NULL;
 		flags[1] = 1;
 	} else {
 		flags[1] = 0;
