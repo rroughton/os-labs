@@ -45,6 +45,7 @@ int run_args(void);
 int execute(void);
 void handle_done_background(void);
 void print_done(void);
+void remove_bg_elem(pid_t pid);
 
 int main(void)
 {
