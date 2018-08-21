@@ -1,3 +1,8 @@
+/* Rebecca Roughton
+	Project 3
+	Thurday Lab Section
+*/
+
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
