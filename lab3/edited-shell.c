@@ -159,7 +159,7 @@ int handle_parent(pid_t child, pid_t wpid)
 	if(flags[1])
 	{
 		num_background++;
-		struct background_element bg_elem = {child, num_background, args};
+		struct background_element bg_elem = { .pid = child, .number = num_background, .full_command = args};
 		background_list[num_background-1] = bg_elem;
 		printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
 		print_done(); 
