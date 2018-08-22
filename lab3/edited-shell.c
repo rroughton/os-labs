@@ -34,9 +34,12 @@ int num_background = 0;
 int num_history = 0;
 char *args[MAX_ARGS];
 int num_args = 0;
-int flags[10];
+int flags[10]; // 0 = History, 1 = Background, 2 = echo, 3 = cd, 4 = piping, 5 = input, 6 = output
 char *done_strs[MAX_ARGS] = {};
 int num_done_strs = 0;
+int pipe_locations[MAX_ARGS];
+int num_pipes = 0;
+int redirect_location;
 
 int set_flags(void);
 int run_args(void);
@@ -48,6 +51,7 @@ int run_parent(pid_t child, pid_t wpid);
 int run_child(void);
 void clear_args(void);
 void execute_cd(void);
+void clear_all(void)
 
 int main(void)
 {
@@ -64,6 +68,7 @@ int main(void)
         fflush(stdout);
 
 		clear_args();
+		clear_all();
 			
 		//Get input
 		fgets(input, MAX_LINE, stdin);
@@ -91,6 +96,7 @@ int main(void)
 // sets flags for special characters in input
 int set_flags()
 {
+	int i = 0;
 
 	if (strcmp(args[0], "exit") == 0)
 	{ 
@@ -133,6 +139,55 @@ int set_flags()
 		flags[3] = 0;
 	}
 
+	// loop for checking for pipes, and redirection
+	for (i = 0; i < num_args; i++)
+	{
+		// checks if token is a pipe.
+		if (strcmp(args[i]), "|") == 0)
+		{
+			flags[4] = 1;
+			pipe_locations[num_pipes];
+			num_pipes++;
+
+		} else {
+			// don't reset flag just because the one token wasn't a pipe
+			if (flags[4] != 1)
+			{
+				flags[4] = 0;
+			}
+		}
+
+		// input
+
+		if (flags[5] == 1 || flags[6] == 1) {
+			printf("\nToo many redirects");
+			fflush(stdout);
+			return 1;
+		} 	
+		else if (strcmp(args[i], "<") == 0)
+		{
+			flags[5] = 1;
+			redirect_location = i;
+		} else {
+			flags[5] = 0;
+		}
+
+		// output
+
+		if (flags[5] == 1 || flags[6] == 1) {
+			printf("\nToo many redirects");
+			fflush(stdout);
+			return 1;
+		} 
+		else if (strcmp(args[i], ">") == 0)
+		{
+			flags[6] = 1;
+			redirect_location = i;
+		} else {
+			flags[5] = 0;
+		}
+	}
+
 	return 1;
 }
 
@@ -142,8 +197,20 @@ int run_args(void)
 	{
 		execute_cd();
 		return 1;
-	} else {
 
+	} else if (flags[4]){
+
+		execute_piping();
+		return 1;
+	} else if (flags[5]) {
+
+		execute_input_redirect();
+		return 1;
+	} else if (flags[6]) {
+
+		execute_output_redirect();
+		return 1
+	} else {
 		return execute();
 	}
 }
@@ -266,8 +333,56 @@ void execute_cd()
 	{
 		chdir(getenv("HOME"));
 	} else {
-		chdir(args[1]);
+		if (chdir(args[1]) == -1)
+		{
+			printf("\ncd failed\n");
+			fflush(stdout);
+		}
 	}
+}
+
+int redirect(int option, char * filename){
+
+	pid_t child, wpid;
+	int status;
+	
+	child = fork();
+	if(child == -1){
+		printf("Fork failed");
+	}
+
+	// child path
+	else if(child == 0){
+		if(option == 1){//Input
+			printf("\nInputFile?:%s", filename);
+			int fdi = open(filename, O_RDONLY, 0);
+			dup2(fdi, STDIN_FILENO);
+			close(fdi);
+
+		}
+		else if(option ==2){//Output
+			printf("\nOutputFile?:%s", filename);
+			int fdo = creat(filename, 0644);
+			dup2(fdo, STDOUT_FILENO);
+			close(fdo);
+			
+		}
+
+		if(execvp(args[0], args) == -1){
+			printf("\nChildBroke");			
+			return 0;
+		}
+		exit(EXIT_FAILURE);
+	}
+	else{
+		
+		do{
+			wpid = waitpid(child, &status, WUNTRACED);
+		}while(!WIFEXITED(status) && !WIFSIGNALED(status));	
+	}		
+	
+	return 1;
+	
 }
 
 void clear_args()
@@ -278,4 +393,44 @@ void clear_args()
 		args[i] = NULL;
 	}
 	num_args = 0;
+}
+
+void clear_all()
+{
+	int i = 0;
+	for (i = 0; i < 10; i++)
+	{
+		history_list[i] == NULL;
+		background_element[i] == NULL;
+		flags[i] = 0;
+	}
+
+	for (i = 0; i < MAX_ARGS; i++)
+	{
+		args[i] = NULL;
+		done_strs[i] = NULL;
+		pipe_locations[i] = NULL;
+	}
+
+	num_background = 0;
+	num_history = 0;
+	num_args = 0;
+	num_done_strs = 0;
+	num_pipes = 0;
+	redirect_location 0;
+}
+
+void execute_piping()
+{
+
+}
+
+void execute_input_redirect()
+{
+
+}
+
+void execute_output_redirect()
+{
+	
 }
