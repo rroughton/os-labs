@@ -64,7 +64,10 @@ int main(void)
 			
 		//Get input
 		fgets(input, MAX_LINE, stdin);
+		printf("\nPassed fgets>");
+		fflush(stdout);
 		input[strcspn(input, "\n")] = '\0';
+
 		char *tok = strtok(input, " ");
 
 		while (tok != NULL)
