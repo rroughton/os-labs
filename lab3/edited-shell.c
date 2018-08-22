@@ -68,6 +68,8 @@ int main(void)
 		printf("\nfgets");
 		fflush(stdout);
 		fgets(input, MAX_LINE, stdin);
+		printf("\nfgets");
+		fflush(stdout);
 		input[strcspn(input, "\n")] = '\0';
 		printf("\nchar *tok");
 		fflush(stdout);
