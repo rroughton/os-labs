@@ -156,8 +156,8 @@ int execute()
 // goes through parent path
 int run_parent(pid_t child, pid_t wpid)
 {
-	printf("got to parent function");
-	fflush(stdout);
+	// printf("got to parent function");
+	// fflush(stdout);
 	int status; // Used to keep track of status for waitpid()
 	int i;
 	
@@ -199,7 +199,8 @@ int run_parent(pid_t child, pid_t wpid)
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-
+	printf("end parent function");
+	fflush(stdout);
 	return 0;
 }
 
@@ -218,6 +219,8 @@ int run_child()
 		fflush(stdout);			
 		return 0;
 	}	
+	printf("end child function");
+	fflush(stdout);
 	exit(EXIT_FAILURE);
 }
 
@@ -247,6 +250,8 @@ void signal_done_background()
 		// Fixes array since element needs to be removed
         remove_bg_elem(wpid);   
     }
+	printf("end sig done function");
+	fflush(stdout);
 }
 
 // reorders list after one background element finishes
@@ -269,7 +274,8 @@ void remove_bg_elem(pid_t pid)
 			num_background--;      
         }
     }
-    return;
+	printf("end rm bg function");
+	fflush(stdout);
 }
 
 void clear_args()
