@@ -57,7 +57,7 @@ int main(void)
 
 	while (should_run)
 	{
-		printf("\nrrsh>");
+		printf("\nrrsh>\n");
 		fflush(stdout);
 
 		clear_args();
@@ -65,6 +65,7 @@ int main(void)
 		//Get input
 		fgets(input, sizeof input, stdin);
 		input[strcspn(input, "\n")] = '\0';
+		printf(input);
 		char *tok = strtok(input, " ");
 
 		while (tok != NULL)
