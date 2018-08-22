@@ -141,68 +141,121 @@ int run_args(void)
 int execute()
 {
 	pid_t child, wpid;
-
+	int i;
+	int status; // Used to keep track of status for waitpid()
+	
 	child = fork();
 
 	if(child == 0){
 	//if is child
-		run_child();
-	}
-	else {
+		i = 0;
+		// for (i=0; i < num_args; i++)
+		// {
+		// 	printf("\nArgs at %d: %s", i, args[i]);
+		// 	printf("\nArgs at 1: %s\n", args[1]);
+		// 	fflush(stdout);	
+		// }
+		if(execvp(args[0], args) == -1){
+			printf("\nChild isn't working");
+			fflush(stdout);			
+			return 0;
+		}	
+		printf("\nend child function");
+		fflush(stdout);
+		exit(EXIT_FAILURE);
+			///
+	}else {
 	//if is parent
-		run_parent(child, wpid);	
+	
+		if(flags[1])
+		{
+			num_background++;
+
+			struct background_element bg_elem = { .pid = child, .number = num_background};
+
+			for (i = 0; i < num_args; i++) 
+			{
+				int str_len = strlen(args[i]);
+				bg_elem.full_command[i] = calloc(str_len + 1, sizeof(char));
+				strcpy(bg_elem.full_command[i], args[i]);
+			}
+
+			bg_elem.full_command[i++] = NULL;
+
+			background_list[num_background-1] = bg_elem;
+			printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
+			fflush(stdout);
+			for(i = 0; i < num_done_strs; i++)
+			{
+				printf("%s", done_strs[i]);
+				fflush(stdout);
+			} 
+			num_done_strs = 0;
+
+		} else {
+			for(i = 0; i < num_done_strs; i++)
+			{
+				printf("%s", done_strs[i]);
+				fflush(stdout);
+			} 
+			num_done_strs = 0;
+			do{
+				// wait for child to finish
+				wpid = waitpid(child, &status, WUNTRACED);
+			} while(!WIFEXITED(status) && !WIFSIGNALED(status));
+		}
 	}
 	return 1;
 }
 
-// goes through parent path
-int run_parent(pid_t child, pid_t wpid)
-{
-	// printf("got to parent function");
-	// fflush(stdout);
-	int status; // Used to keep track of status for waitpid()
-	int i;
+// // goes through parent path
+// int run_parent(pid_t child, pid_t wpid)
+// {
+// 	// printf("got to parent function");
+// 	// fflush(stdout);
+// 	int status; // Used to keep track of status for waitpid()
+// 	int i;
 	
 	
-	if(flags[1])
-	{
-		num_background++;
+// 	if(flags[1])
+// 	{
+// 		num_background++;
 
-		struct background_element bg_elem = { .pid = child, .number = num_background};
+// 		struct background_element bg_elem = { .pid = child, .number = num_background};
 
-		for (i = 0; i < num_args; i++) 
-		{
-    		int str_len = strlen(args[i]);
-			bg_elem.full_command[i] = calloc(str_len + 1, sizeof(char));
-			strcpy(bg_elem.full_command[i], args[i]);
-		}
+// 		for (i = 0; i < num_args; i++) 
+// 		{
+//     		int str_len = strlen(args[i]);
+// 			bg_elem.full_command[i] = calloc(str_len + 1, sizeof(char));
+// 			strcpy(bg_elem.full_command[i], args[i]);
+// 		}
 
-		bg_elem.full_command[i++] = NULL;
+// 		bg_elem.full_command[i++] = NULL;
 
-		background_list[num_background-1] = bg_elem;
-		printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
-		fflush(stdout);
-    	for(i = 0; i < num_done_strs; i++)
-    	{
-    	    printf("%s", done_strs[i]);
-			fflush(stdout);
-    	} 
-    	num_done_strs = 0;
+// 		background_list[num_background-1] = bg_elem;
+// 		printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
+// 		fflush(stdout);
+//     	for(i = 0; i < num_done_strs; i++)
+//     	{
+//     	    printf("%s", done_strs[i]);
+// 			fflush(stdout);
+//     	} 
+//     	num_done_strs = 0;
 
-	} else {
-		for(i = 0; i < num_done_strs; i++)
-    	{
-    	    printf("%s", done_strs[i]);
-			fflush(stdout);
-    	} 
-    	num_done_strs = 0;
-		do{
-			// wait for child to finish
-			wpid = waitpid(child, &status, WUNTRACED);
-		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
-	}
-	return 0;
-}
+// 	} else {
+// 		for(i = 0; i < num_done_strs; i++)
+//     	{
+//     	    printf("%s", done_strs[i]);
+// 			fflush(stdout);
+//     	} 
+//     	num_done_strs = 0;
+// 		do{
+// 			// wait for child to finish
+// 			wpid = waitpid(child, &status, WUNTRACED);
+// 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
+// 	}
+// 	return 0;
+// }
 
 // goes down child path
 int run_child()
