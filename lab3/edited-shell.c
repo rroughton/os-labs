@@ -150,6 +150,8 @@ int execute()
 	//if is parent
 		run_parent(child, wpid);	
 	}
+	printf("\nend execute function");
+	fflush(stdout);
 	return 1;
 }
 
