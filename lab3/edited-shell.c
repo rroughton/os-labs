@@ -59,7 +59,6 @@ int main(void)
 	while (should_run)
 	{
     	int i = 0;
-		sleep(10);
 
 		clear_args();
 			
