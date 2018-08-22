@@ -301,7 +301,9 @@ void signal_done_background()
 		printf("\nabove sprintf");
 		fflush(stdout);
         sprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
-        strcpy(done_strs[num_done_strs], done_str);
+        printf("\nabove sprintf");
+		fflush(stdout);
+		strcpy(done_strs[num_done_strs], done_str);
         num_done_strs++;
 
 		printf("\nabove rmelem");
