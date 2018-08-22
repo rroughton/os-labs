@@ -95,23 +95,22 @@ int main(void)
 int set_flags()
 {
 
-	if (strcmp(args[0], "exit\n") == 0)
+	if (strcmp(args[0], "exit") == 0)
 	{ 
 		printf("\nExiting program");
 		fflush(stdout);
 		return 0; // change should_run to 0
 	}
 
-	if (strcmp(args[0], "history\n") == 0)
+	if (strcmp(args[0], "history") == 0)
 	{
 		flags[0] = 1;
 	} else {
 		flags[0] = 0;
 	}
 
-	if (strcmp(args[num_args - 1], "&\n") == 0)
+	if (strcmp(args[num_args - 1], "&") == 0)
 	{
-		args[num_args-1] = NULL;
 		flags[1] = 1;
 	} else {
 		flags[1] = 0;
@@ -187,11 +186,11 @@ int run_parent(pid_t child, pid_t wpid)
 int run_child()
 {
 	int i = 0;
-	for (i=0; i < num_args; i++)
-	{
-		printf("\nArgs at %d: %s", i, args[i]);
-		fflush(stdout);	
-	}
+	// for (i=0; i < num_args; i++)
+	// {
+	// 	printf("\nArgs at %d: %s", i, args[i]);
+	// 	fflush(stdout);	
+	// }
 
 	if(execvp(args[0], args) == -1){
 		printf("\nChild isn't working");
