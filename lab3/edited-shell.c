@@ -51,7 +51,7 @@ int run_parent(pid_t child, pid_t wpid);
 int run_child(void);
 void clear_args(void);
 void execute_cd(void);
-void clear_all(void)
+void clear_all(void);
 
 int main(void)
 {
@@ -432,5 +432,5 @@ void execute_input_redirect()
 
 void execute_output_redirect()
 {
-	
+
 }
