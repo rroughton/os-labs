@@ -134,8 +134,6 @@ int run_args(void)
 {
 
 	return execute();
-	printf("\nend run_args function");
-	fflush(stdout);
 
 }
 
@@ -154,8 +152,6 @@ int execute()
 	//if is parent
 		run_parent(child, wpid);	
 	}
-	printf("\nend execute function");
-	fflush(stdout);
 	return 1;
 }
 
@@ -205,8 +201,6 @@ int run_parent(pid_t child, pid_t wpid)
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-	printf("\nend parent function");
-	fflush(stdout);
 	return 0;
 }
 
@@ -235,7 +229,8 @@ void signal_done_background()
 {
     int status = 0; //status of exit
     pid_t wpid; //pid of exiting process
-
+	printf("\nabout waitpid");
+    fflush(stdout);
     wpid = waitpid(-1, &status, WNOHANG);
 
     if (wpid > 0){
