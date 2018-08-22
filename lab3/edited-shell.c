@@ -53,10 +53,10 @@ int main(void)
     
     char input[MAX_LINE];
     int should_run = 1;
-    int i = 0;
 
 	while (should_run)
 	{
+    	int i = 0;
 		printf("\nrrsh>");
 		fflush(stdout);
 
@@ -67,9 +67,11 @@ int main(void)
 		printf("\nPassed fgets>");
 		fflush(stdout);
 		input[strcspn(input, "\n")] = '\0';
-
+		printf("\nPassed 2");
+		fflush(stdout);
 		char *tok = strtok(input, " ");
-
+		printf("\nPassed 3>");
+		fflush(stdout);
 		while (tok != NULL)
 		{
 			args[i] = tok;
