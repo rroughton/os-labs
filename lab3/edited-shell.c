@@ -59,6 +59,8 @@ int main(void)
 	while (should_run)
 	{
     	int i = 0;
+		printf("rrsh> ");
+        fflush(stdout);
 
 		clear_args();
 			
