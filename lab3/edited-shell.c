@@ -208,75 +208,6 @@ int execute()
 	return 1;
 }
 
-// // goes through parent path
-// int run_parent(pid_t child, pid_t wpid)
-// {
-// 	// printf("got to parent function");
-// 	// fflush(stdout);
-// 	int status; // Used to keep track of status for waitpid()
-// 	int i;
-	
-	
-// 	if(flags[1])
-// 	{
-// 		num_background++;
-
-// 		struct background_element bg_elem = { .pid = child, .number = num_background};
-
-// 		for (i = 0; i < num_args; i++) 
-// 		{
-//     		int str_len = strlen(args[i]);
-// 			bg_elem.full_command[i] = calloc(str_len + 1, sizeof(char));
-// 			strcpy(bg_elem.full_command[i], args[i]);
-// 		}
-
-// 		bg_elem.full_command[i++] = NULL;
-
-// 		background_list[num_background-1] = bg_elem;
-// 		printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
-// 		fflush(stdout);
-//     	for(i = 0; i < num_done_strs; i++)
-//     	{
-//     	    printf("%s", done_strs[i]);
-// 			fflush(stdout);
-//     	} 
-//     	num_done_strs = 0;
-
-// 	} else {
-// 		for(i = 0; i < num_done_strs; i++)
-//     	{
-//     	    printf("%s", done_strs[i]);
-// 			fflush(stdout);
-//     	} 
-//     	num_done_strs = 0;
-// 		do{
-// 			// wait for child to finish
-// 			wpid = waitpid(child, &status, WUNTRACED);
-// 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
-// 	}
-// 	return 0;
-// }
-
-// goes down child path
-int run_child()
-{
-	int i = 0;
-	for (i=0; i < num_args; i++)
-	{
-		printf("\nArgs at %d: %s", i, args[i]);
-		printf("\nArgs at 1: %s\n", args[1]);
-		fflush(stdout);	
-	}
-	if(execvp(args[0], args) == -1){
-		printf("\nChild isn't working");
-		fflush(stdout);			
-		return 0;
-	}	
-	printf("\nend child function");
-	fflush(stdout);
-	exit(EXIT_FAILURE);
-}
-
 // Prints the string for a done process
 void signal_done_background()
 {
@@ -297,7 +228,7 @@ void signal_done_background()
 		printf("\npassed sprintf\n");
 		printf("%s", done_strs[0]);
 		fflush(stdout);
-		strcpy(done_strs[num_done_strs], done_str);
+		strcpy(done_strs[num_done_strs], "test");
 		printf("\npassed strcpy");
 		fflush(stdout);
 
