@@ -125,11 +125,22 @@ int set_flags()
 		flags[2] = 0;
 	}
 
+	if (strcmp(args[0], "cd") == 0)
+	{
+		flags[3] = 1;
+	} else {
+		flags[3] = 0;
+	}
+
 	return 1;
 }
 
 int run_args(void)
 {
+	if (flags[3]) // do cd
+	{
+		execute_cd();
+	}
 
 	return execute();
 
@@ -147,12 +158,7 @@ int execute()
 	if(child == 0){
 	//if is child
 		i = 0;
-		// for (i=0; i < num_args; i++)
-		// {
-		// 	printf("\nArgs at %d: %s", i, args[i]);
-		// 	printf("\nArgs at 1: %s\n", args[1]);
-		// 	fflush(stdout);	
-		// }
+
 		if(execvp(args[0], args) == -1){
 			printf("\nChild isn't working");
 			fflush(stdout);			
@@ -179,8 +185,6 @@ int execute()
 			bg_elem.full_command[i++] = NULL;
 
 			background_list[num_background-1] = bg_elem;
-			printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
-			fflush(stdout);
 			for(i = 0; i < num_done_strs; i++)
 			{
 				printf("%s", done_strs[i]);
@@ -191,7 +195,6 @@ int execute()
 		} else {
 			for(i = 0; i < num_done_strs; i++)
 			{
-				printf("\nhere now!\n");
 				printf("%s", done_strs[i]);
 				fflush(stdout);
 			} 
@@ -252,6 +255,17 @@ void remove_bg_elem(pid_t pid)
         }
     }
 	fflush(stdout);
+}
+
+// runs cd method. Primarily utilizes chdir() method.
+void execute_cd()
+{
+	if (arg[1] == NULL)
+	{
+		return 1 - chdir(getenv("HOME"));
+	} else {
+		return 1 - chdir(args[1]);
+	}
 }
 
 void clear_args()
