@@ -285,7 +285,7 @@ void signal_done_background()
     wpid = waitpid(-1, &status, WNOHANG);
 
     if (wpid > 0){
-        char done_str[80];
+        char done_str[MAX_ARGS] = {0};
         int i;       
 
        	while (background_list[i].pid != wpid)
@@ -294,8 +294,8 @@ void signal_done_background()
 		}
 
 
-        // snprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
-		strcpy(done_strs[num_done_strs], "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid);
+        snprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
+		strcpy(done_strs[num_done_strs], done_str);
         num_done_strs++;
 
 		// Fixes array since element needs to be removed
