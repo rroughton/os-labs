@@ -217,7 +217,6 @@ void signal_done_background()
 
     if (wpid > 0){
         char done_str[150] = { };
-		done_strs[0] = "test";
         int i;       
 
        	while (background_list[i].pid != wpid)
