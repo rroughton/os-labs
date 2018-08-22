@@ -280,39 +280,26 @@ int run_child()
 // Prints the string for a done process
 void signal_done_background()
 {
-	sleep(10);
-    int status = 0; //status of exit
+	int status = 0; //status of exit
     pid_t wpid; //pid of exiting process
-	printf("\nabove waitpid");
-    fflush(stdout);
     wpid = waitpid(-1, &status, WNOHANG);
 
     if (wpid > 0){
         char done_str[80];
         int i;       
 
-        for (i = 0; i < num_background; i++)
-        {
-            if (background_list[i].pid == wpid){
-                break;
-            }
-        }
+       	while (background_list[i].pid != wpid)
+		{
+			i++;
+		}
 
-		printf("\nabove sprintf");
-		fflush(stdout);
         sprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
-        printf("\nabove sprintf");
-		fflush(stdout);
 		strcpy(done_strs[num_done_strs], done_str);
         num_done_strs++;
 
-		printf("\nabove rmelem");
-		fflush(stdout);
 		// Fixes array since element needs to be removed
         remove_bg_elem(wpid);   
     }
-	printf("\nend sig done function");
-	fflush(stdout);
 }
 
 // reorders list after one background element finishes
