@@ -156,8 +156,11 @@ int execute()
 // goes through parent path
 int run_parent(pid_t child, pid_t wpid)
 {
+	printf("got to parent function");
+	fflush(stdout);
 	int status; // Used to keep track of status for waitpid()
 	int i;
+	
 	
 	if(flags[1])
 	{
