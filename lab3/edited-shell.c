@@ -65,7 +65,7 @@ int main(void)
 		//Get input
 		fgets(input, sizeof input, stdin);
 		input[strcspn(input, "\n")] = '\0';
-		printf(input);
+		printf("Input is: %s", input);
 		char *tok = strtok(input, " ");
 
 		while (tok != NULL)
