@@ -65,9 +65,13 @@ int main(void)
 		clear_args();
 			
 		//Get input
+		printf("\nfgets");
+		fflush(stdout);
 		fgets(input, MAX_LINE, stdin);
 		input[strcspn(input, "\n")] = '\0';
 		char *tok = strtok(input, " ");
+		printf("\ninner while");
+		fflush(stdout);
 		while (tok != NULL)
 		{
 			args[i] = tok;
@@ -83,6 +87,8 @@ int main(void)
 		{
 			run_args();
 		}
+		printf("\n bottom of while loop");
+		fflush(stdout);
 	}
 	return 0;
 }
@@ -132,6 +138,8 @@ int run_args(void)
 {
 
 	return execute();
+	printf("\nend run_args function");
+	fflush(stdout);
 
 }
 
