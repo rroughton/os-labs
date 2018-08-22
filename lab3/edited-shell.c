@@ -41,7 +41,7 @@ int num_done_strs = 0;
 int set_flags(void);
 int run_args(void);
 int execute(void);
-void handle_done_background(void);
+void signal_done_background(void);
 void print_done(void);
 void remove_bg_elem(pid_t pid);
 int run_parent(pid_t child, pid_t wpid);
@@ -53,6 +53,8 @@ int main(void)
     
     char input[MAX_LINE];
     int should_run = 1;
+
+	signal(SIGCHLD, signal_done_background);
 
 	while (should_run)
 	{
@@ -197,8 +199,8 @@ int run_child()
 	exit(EXIT_FAILURE);
 }
 
-// Creates the string for a done process
-void handle_done_background()
+// Prints the string for a done process
+void signal_done_background()
 {
     int status = 0; //status of exit
     pid_t wpid; //pid of exiting process
@@ -206,7 +208,7 @@ void handle_done_background()
     wpid = waitpid(-1, &status, WNOHANG);
 
     if (wpid > 0){
-        char str[100];
+        char done_str[100];
         int i;       
 
         for (i = 0; i < num_background; i++)
@@ -216,8 +218,8 @@ void handle_done_background()
             }
         }
 
-        sprintf(str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
-        strcpy(done_strs[num_done_strs], str);
+        sprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
+        strcpy(done_strs[num_done_strs], done_str);
         num_done_strs++;
 
 		// Fixes array since element needs to be removed
