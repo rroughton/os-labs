@@ -170,17 +170,9 @@ int run_parent(pid_t child, pid_t wpid)
 
 		for (i = 0; i < num_args; i++) 
 		{
-			printf("\ngot to 1");
-			fflush(stdout);
     		int str_len = strlen(args[i]);
-    		printf("\ngot to 2");
-			fflush(stdout);
 			bg_elem.full_command[i] = calloc(str_len + 1, sizeof(char));
-    		printf("\ngot to 3");
-			fflush(stdout);
 			strcpy(bg_elem.full_command[i], args[i]);
-			printf("\ngot to 4");
-			fflush(stdout);
 		}
 
 		bg_elem.full_command[i++] = NULL;
@@ -196,11 +188,19 @@ int run_parent(pid_t child, pid_t wpid)
     	num_done_strs = 0;
 
 	} else {
+		for(i = 0; i < num_done_strs; i++)
+    	{
+    	    printf("%s", done_strs[i]);
+			fflush(stdout);
+    	} 
+    	num_done_strs = 0;
 		do{
 			// wait for child to finish
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
+
+	return 0;
 }
 
 // goes down child path
