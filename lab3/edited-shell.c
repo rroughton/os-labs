@@ -285,7 +285,7 @@ void signal_done_background()
     wpid = waitpid(-1, &status, WNOHANG);
 
     if (wpid > 0){
-        char done_str[MAX_ARGS] = {0};
+        char done_str[MAX_ARGS] = { };
         int i;       
 
        	while (background_list[i].pid != wpid)
@@ -295,6 +295,8 @@ void signal_done_background()
 
 
         sprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
+		printf("\npassed sprintf");
+		fflush(stdout);
 		strcpy(done_strs[num_done_strs], done_str);
         num_done_strs++;
 
