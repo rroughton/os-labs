@@ -30,12 +30,12 @@ struct background_element
 struct history_element history_list[10];
 struct background_element background_list[MAX_BG];
 
-int num_background;
-int num_history;
+int num_background = 0;
+int num_history = 0;
 char *args[MAX_ARGS];
-int num_args;
+int num_args = 0;
 int flags[10];
-char *done_strs[MAX_ARGS];
+char *done_strs[MAX_ARGS] = {};
 int num_done_strs = 0;
 
 int set_flags(void);
