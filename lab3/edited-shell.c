@@ -199,7 +199,7 @@ int run_parent(pid_t child, pid_t wpid)
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-	printf("end parent function");
+	printf("\nend parent function");
 	fflush(stdout);
 	return 0;
 }
@@ -213,14 +213,12 @@ int run_child()
 		printf("\nArgs at %d: %s", i, args[i]);
 		fflush(stdout);	
 	}
-	printf("end parent function");
-	fflush(stdout);
 	if(execvp(args[0], args) == -1){
 		printf("\nChild isn't working");
 		fflush(stdout);			
 		return 0;
 	}	
-	printf("end child function");
+	printf("\nend child function");
 	fflush(stdout);
 	exit(EXIT_FAILURE);
 }
@@ -251,7 +249,7 @@ void signal_done_background()
 		// Fixes array since element needs to be removed
         remove_bg_elem(wpid);   
     }
-	printf("end sig done function");
+	printf("\nend sig done function");
 	fflush(stdout);
 }
 
@@ -275,7 +273,7 @@ void remove_bg_elem(pid_t pid)
 			num_background--;      
         }
     }
-	printf("end rm bg function");
+	printf("\nend rm bg function");
 	fflush(stdout);
 }
 
