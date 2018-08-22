@@ -293,7 +293,7 @@ void signal_done_background()
 			i++;
 		}
 
-        sprintf(done_str, "[%d]", background_list[i].number;
+        sprintf(done_str, "[%d]", background_list[i].number);
 		printf("\npassedfurst sprintf");
         sprintf(done_str, "[%d]\tDone\t%d\n", background_list[i].number, background_list[i].pid); 
 		printf("\npassed sprintf");
