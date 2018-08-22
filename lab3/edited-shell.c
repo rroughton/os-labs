@@ -47,6 +47,7 @@ void remove_bg_elem(pid_t pid);
 int run_parent(pid_t child, pid_t wpid);
 int run_child(void);
 void clear_args(void);
+void execute_cd(void);
 
 int main(void)
 {
@@ -262,9 +263,9 @@ void execute_cd()
 {
 	if (arg[1] == NULL)
 	{
-		return 1 - chdir(getenv("HOME"));
+		chdir(getenv("HOME"));
 	} else {
-		return 1 - chdir(args[1]);
+		chdir(args[1]);
 	}
 }
 
