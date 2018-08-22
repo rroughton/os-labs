@@ -162,7 +162,16 @@ int run_parent(pid_t child, pid_t wpid)
 	if(flags[1])
 	{
 		num_background++;
-		struct background_element bg_elem = { .pid = child, .number = num_background, .full_command = args};
+
+		struct background_element bg_elem = { .pid = child, .number = num_background};
+
+		for (unsigned int i = 0; i < MAX_ARGS; i++) 
+		{
+    		int str_len = strlen(args[i]);
+    		bg_elem.full_command[i] = calloc(str_len + 1, sizeof(char));
+    		strcpy(bg_elem.full_command[i], args[i]);
+		}
+
 		background_list[num_background-1] = bg_elem;
 		printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
 		fflush(stdout);
