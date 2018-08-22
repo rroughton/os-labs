@@ -51,19 +51,19 @@ void clear_args(void);
 int main(void)
 {
     
+    char input[MAX_LINE];
     int should_run = 1;
     int i = 0;
 
 	while (should_run)
 	{
-    	char * input = malloc(MAX_LINE+1);
 		printf("rrsh>");
 		fflush(stdout);
 
 		clear_args();
 			
 		//Get input
-		fgets(input, sizeof input, stdin);
+		fgets(input, MAX_LINE, stdin);
 		input[strcspn(input, "\n")] = '\0';
 		char *tok = strtok(input, " ");
 
