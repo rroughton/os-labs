@@ -298,6 +298,9 @@ void signal_done_background()
 		printf(done_str);
 		fflush(stdout);
 		strcpy(done_strs[num_done_strs], done_str);
+		printf("\npassed strcpy");
+		fflush(stdout);
+
         num_done_strs++;
 
 		// Fixes array since element needs to be removed
