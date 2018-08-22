@@ -293,13 +293,8 @@ void signal_done_background()
 			i++;
 		}
 
-		printf("\ni: %d", i);
-		printf("\nbackground_list[i pid]: %d", background_list[i].pid);
-		printf("\n: background_list[i] number: %d", background_list[i].number);
-		fflush(stdout);
-
-        sprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
-		strcpy(done_strs[num_done_strs], done_str);
+        // snprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
+		strcpy(done_strs[num_done_strs], (done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid));
         num_done_strs++;
 
 		// Fixes array since element needs to be removed
