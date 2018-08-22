@@ -293,8 +293,9 @@ void signal_done_background()
 			i++;
 		}
 
+
         // snprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
-		strcpy(done_strs[num_done_strs], (done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid));
+		strcpy(done_strs[num_done_strs], "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid);
         num_done_strs++;
 
 		// Fixes array since element needs to be removed
