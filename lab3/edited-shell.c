@@ -185,6 +185,7 @@ int execute()
 			fflush(stdout);
 			for(i = 0; i < num_done_strs; i++)
 			{
+				printf("\nbackground print done!\n");
 				printf("%s", done_strs[i]);
 				fflush(stdout);
 			} 
