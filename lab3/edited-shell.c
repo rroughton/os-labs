@@ -304,6 +304,8 @@ void signal_done_background()
         strcpy(done_strs[num_done_strs], done_str);
         num_done_strs++;
 
+		printf("\nabove rmelem");
+		fflush(stdout);
 		// Fixes array since element needs to be removed
         remove_bg_elem(wpid);   
     }
