@@ -51,12 +51,12 @@ void clear_args(void);
 int main(void)
 {
     
-    char input[MAX_LINE];
     int should_run = 1;
     int i = 0;
 
 	while (should_run)
 	{
+    	char input[MAX_LINE];
 		printf("\nrrsh>");
 		fflush(stdout);
 
@@ -185,11 +185,11 @@ int run_parent(pid_t child, pid_t wpid)
 int run_child()
 {
 	int i = 0;
-	for (i=0; i < num_args; i++)
-	{
-		printf("\nArgs at %d: %s", i, args[i]);
-		fflush(stdout);	
-	}
+	// for (i=0; i < num_args; i++)
+	// {
+	// 	printf("\nArgs at %d: %s", i, args[i]);
+	// 	fflush(stdout);	
+	// }
 
 	if(execvp(args[0], args) == -1){
 		printf("\nChild isn't working");
