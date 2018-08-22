@@ -256,4 +256,5 @@ void clear_args()
 	{
 		args[i] = NULL;
 	}
+	num_args = 0;
 }
