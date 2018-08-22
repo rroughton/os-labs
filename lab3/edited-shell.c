@@ -229,7 +229,7 @@ void signal_done_background()
 		printf("\npassed sprintf\n");
 		printf("%s", done_strs[0]);
 		fflush(stdout);
-		strcpy(done_strs[num_done_strs], "test");
+		done_strs[num_done_strs] = done_strs;
 		printf("\npassed strcpy");
 		fflush(stdout);
 
