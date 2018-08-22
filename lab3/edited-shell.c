@@ -303,7 +303,7 @@ void signal_done_background()
 		printf("\npassed third sprintf\n");
 		printf(done_str);
         sprintf(done_str, "[%d]\tDone\t%d\n", background_list[i].number, background_list[i].pid); 
-		printf("\npassed sprintf");
+		printf("\npassed sprintf\n");
 		printf(done_str);
 		fflush(stdout);
 		strcpy(done_strs[num_done_strs], done_str);
