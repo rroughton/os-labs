@@ -285,7 +285,7 @@ void signal_done_background()
     wpid = waitpid(-1, &status, WNOHANG);
 
     if (wpid > 0){
-        char done_str[MAX_ARGS] = { };
+        char done_str[150] = { };
         int i;       
 
        	while (background_list[i].pid != wpid)
