@@ -57,7 +57,7 @@ int main(void)
 
 	while (should_run)
 	{
-		printf("rrsh>");
+		printf("\nrrsh>");
 		fflush(stdout);
 
 		clear_args();
