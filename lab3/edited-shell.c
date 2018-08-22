@@ -294,7 +294,7 @@ void signal_done_background()
 		}
 
 
-        snprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
+        sprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
 		strcpy(done_strs[num_done_strs], done_str);
         num_done_strs++;
 
