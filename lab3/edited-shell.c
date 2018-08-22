@@ -168,7 +168,7 @@ int run_parent(pid_t child, pid_t wpid)
 
 		struct background_element bg_elem = { .pid = child, .number = num_background};
 
-		for (i = 0; i < MAX_ARGS; i++) 
+		for (i = 0; i < num_args; i++) 
 		{
 			printf("\ngot to 1");
 			fflush(stdout);
@@ -182,6 +182,8 @@ int run_parent(pid_t child, pid_t wpid)
 			printf("\ngot to 4");
 			fflush(stdout);
 		}
+
+		bg_elem.full_command[i++] = NULL;
 
 		background_list[num_background-1] = bg_elem;
 		printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
