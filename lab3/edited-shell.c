@@ -165,7 +165,7 @@ int run_parent(pid_t child, pid_t wpid)
 
 		struct background_element bg_elem = { .pid = child, .number = num_background};
 
-		for (unsigned int i = 0; i < MAX_ARGS; i++) 
+		for (i = 0; i < MAX_ARGS; i++) 
 		{
     		int str_len = strlen(args[i]);
     		bg_elem.full_command[i] = calloc(str_len + 1, sizeof(char));
