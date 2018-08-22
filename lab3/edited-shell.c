@@ -59,7 +59,7 @@ int main(void)
 	while (should_run)
 	{
     	int i = 0;
-		sleep(100);
+		sleep(10);
 		printf("\nrrsh>");
 		fflush(stdout);
 
