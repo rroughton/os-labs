@@ -111,6 +111,9 @@ int set_flags()
 
 	if (strcmp(args[num_args - 1], "&") == 0)
 	{
+		// trim off & and lower amount of args
+		args[num_args-1] = NULL;
+		num_args--;
 		flags[1] = 1;
 	} else {
 		flags[1] = 0;
