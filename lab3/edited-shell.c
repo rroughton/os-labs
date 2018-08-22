@@ -280,9 +280,10 @@ int run_child()
 // Prints the string for a done process
 void signal_done_background()
 {
+	sleep(10);
     int status = 0; //status of exit
     pid_t wpid; //pid of exiting process
-	printf("\nabout waitpid");
+	printf("\nabove waitpid");
     fflush(stdout);
     wpid = waitpid(-1, &status, WNOHANG);
 
