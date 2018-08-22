@@ -60,23 +60,13 @@ int main(void)
 	{
     	int i = 0;
 		sleep(10);
-		printf("\nrrsh>");
-		fflush(stdout);
 
 		clear_args();
 			
 		//Get input
-		printf("\nfgets");
-		fflush(stdout);
 		fgets(input, MAX_LINE, stdin);
-		printf("\nfgets past");
-		fflush(stdout);
 		input[strcspn(input, "\n")] = '\0';
-		printf("\nchar *tok");
-		fflush(stdout);
 		char *tok = strtok(input, " ");
-		printf("\ninner while");
-		fflush(stdout);
 		while (tok != NULL)
 		{
 			args[i] = tok;
@@ -225,7 +215,8 @@ int run_child()
 	int i = 0;
 	for (i=0; i < num_args; i++)
 	{
-		printf("\nArgs at %d: %s\n", i, args[i]);
+		printf("\nArgs at %d: %s", i, args[i]);
+		printf("\nArgs at 1: %s\n", args[1]);
 		fflush(stdout);	
 	}
 	if(execvp(args[0], args) == -1){
