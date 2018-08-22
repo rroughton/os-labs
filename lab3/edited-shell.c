@@ -293,6 +293,10 @@ void signal_done_background()
 			i++;
 		}
 
+		printf("\ni: %d", i);
+		printf("\n: background_list[i]: %s", background_list[i]);
+		fflush(stdout);
+
         sprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
 		strcpy(done_strs[num_done_strs], done_str);
         num_done_strs++;
