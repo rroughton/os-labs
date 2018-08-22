@@ -46,6 +46,7 @@ void print_done(void);
 void remove_bg_elem(pid_t pid);
 int run_parent(pid_t child, pid_t wpid);
 int run_child(void);
+void clear_args(void);
 
 int main(void)
 {
@@ -64,6 +65,7 @@ int main(void)
 		printf("\nrrsh>");
 		fflush(stdout);
 
+		clear_args();
 			
 		//Get input
 		fgets(input, sizeof input, stdin);
@@ -250,8 +252,11 @@ void remove_bg_elem(pid_t pid)
     return;
 }
 
-// basic print method for dealing with background processes as they finish
-void print_done()
+void clear_args()
 {
-
+	int i = 0;
+	for(i = 0; i < MAX_ARGS; i++)
+	{
+		args[i] = NULL;
+	}
 }
