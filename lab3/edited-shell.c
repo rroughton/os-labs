@@ -294,7 +294,7 @@ void signal_done_background()
 		}
 
 		printf("\ni: %d", i);
-		printf("\n: background_list[i]: %s", background_list[i]);
+		printf("\n: background_list[i]: %d", background_list[i].pid);
 		fflush(stdout);
 
         sprintf(done_str, "[%d]\tDone\t%s\n", background_list[i].number, background_list[i].pid); 
