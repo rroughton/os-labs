@@ -193,6 +193,7 @@ int execute()
 		} else {
 			for(i = 0; i < num_done_strs; i++)
 			{
+				printf("\nhere now!\n");
 				printf("%s", done_strs[i]);
 				fflush(stdout);
 			} 
