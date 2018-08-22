@@ -170,9 +170,17 @@ int run_parent(pid_t child, pid_t wpid)
 
 		for (i = 0; i < MAX_ARGS; i++) 
 		{
+			printf("\ngot to 1");
+			fflush(stdout);
     		int str_len = strlen(args[i]);
-    		bg_elem.full_command[i] = calloc(str_len + 1, sizeof(char));
-    		strcpy(bg_elem.full_command[i], args[i]);
+    		printf("\ngot to 2");
+			fflush(stdout);
+			bg_elem.full_command[i] = calloc(str_len + 1, sizeof(char));
+    		printf("\ngot to 3");
+			fflush(stdout);
+			strcpy(bg_elem.full_command[i], args[i]);
+			printf("\ngot to 4");
+			fflush(stdout);
 		}
 
 		background_list[num_background-1] = bg_elem;
@@ -191,9 +199,6 @@ int run_parent(pid_t child, pid_t wpid)
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-
-	printf("end parent function");
-	fflush(stdout);
 }
 
 // goes down child path
