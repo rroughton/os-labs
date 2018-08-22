@@ -102,7 +102,6 @@ int set_flags()
 
 	if (strcmp(args[0], "history\n") == 0)
 	{
-		fflush(stdout);
 		flags[0] = 1;
 	} else {
 		flags[0] = 0;
@@ -110,7 +109,6 @@ int set_flags()
 
 	if (strcmp(args[num_args - 1], "&\n") == 0)
 	{
-		fflush(stdout);
 		args[num_args-1] = NULL;
 		flags[1] = 1;
 	} else {
@@ -122,7 +120,6 @@ int set_flags()
 	char last_char = first_string[strlen(first_string)-2];
 	if ( last_char == '!')
 	{
-		fflush(stdout);
 		flags[2] = 1;
 	} else {
 		flags[2] = 0;
@@ -168,10 +165,11 @@ int run_parent(pid_t child, pid_t wpid)
 		struct background_element bg_elem = { .pid = child, .number = num_background, .full_command = args};
 		background_list[num_background-1] = bg_elem;
 		printf("[%d]\t%d\n", bg_elem.number, bg_elem.pid);
-
+		fflush(stdout);
     	for(i = 0; i < num_done_strs; i++)
     	{
     	    printf("%s", done_strs[i]);
+			fflush(stdout);
     	} 
     	num_done_strs = 0;
 
@@ -186,8 +184,16 @@ int run_parent(pid_t child, pid_t wpid)
 // goes down child path
 int run_child()
 {
+	int i = 0;
+	for (i=0; i < num_args; i++)
+	{
+		printf("\nArgs at %d: %s", i, args[i]);
+		fflush(stdout);	
+	}
+
 	if(execvp(args[0], args) == -1){
-		printf("\nChild isn't working");			
+		printf("\nChild isn't working");
+		fflush(stdout);			
 		return 0;
 	}	
 	exit(EXIT_FAILURE);
