@@ -210,7 +210,7 @@ int run_child()
 	int i = 0;
 	for (i=0; i < num_args; i++)
 	{
-		printf("\nArgs at %d: %s", i, args[i]);
+		printf("\nArgs at %d: %s\n", i, args[i]);
 		fflush(stdout);	
 	}
 	if(execvp(args[0], args) == -1){
