@@ -222,6 +222,7 @@ void signal_done_background()
 			i++;
 		}
 
+		printf("\nOver here!\n");
         sprintf(done_str, "[%d]\tDone\t%d\n", background_list[i].number, background_list[i].pid); 
 		done_strs[num_done_strs] = done_strs;
 
