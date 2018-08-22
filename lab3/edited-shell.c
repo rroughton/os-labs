@@ -41,7 +41,7 @@ int num_done_strs = 0;
 int set_flags(void);
 int run_args(void);
 int execute(void);
-void signal_done_background(void);
+void signal_done_background();
 void print_done(void);
 void remove_bg_elem(pid_t pid);
 int run_parent(pid_t child, pid_t wpid);
