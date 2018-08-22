@@ -293,15 +293,6 @@ void signal_done_background()
 			i++;
 		}
 
-        sprintf(done_str, "[%d]", background_list[i].number);
-		printf("\npassed first sprintf\n");
-		printf(done_str);
-        sprintf(done_str, "\tDone\t"); 
-		printf("\npassed second sprintf\n");
-		printf(done_str);
-        sprintf(done_str, "%d\n", background_list[i].pid); 
-		printf("\npassed third sprintf\n");
-		printf(done_str);
         sprintf(done_str, "[%d]\tDone\t%d\n", background_list[i].number, background_list[i].pid); 
 		printf("\npassed sprintf\n");
 		printf(done_str);
