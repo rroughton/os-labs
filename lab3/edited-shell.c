@@ -191,6 +191,9 @@ int run_parent(pid_t child, pid_t wpid)
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
+
+	printf("end parent function");
+	fflush(stdout);
 }
 
 // goes down child path
