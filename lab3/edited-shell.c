@@ -141,10 +141,11 @@ int run_args(void)
 	if (flags[3]) // do cd
 	{
 		execute_cd();
+		return 1;
+	} else {
+
+		return execute();
 	}
-
-	return execute();
-
 }
 
 // fork argument and go through child and parent code
