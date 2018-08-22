@@ -64,14 +64,8 @@ int main(void)
 			
 		//Get input
 		fgets(input, MAX_LINE, stdin);
-		printf("\nPassed fgets>");
-		fflush(stdout);
 		input[strcspn(input, "\n")] = '\0';
-		printf("\nPassed 2");
-		fflush(stdout);
 		char *tok = strtok(input, " ");
-		printf("\nPassed 3>");
-		fflush(stdout);
 		while (tok != NULL)
 		{
 			args[i] = tok;
