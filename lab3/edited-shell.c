@@ -158,8 +158,6 @@ int execute()
 			fflush(stdout);			
 			return 0;
 		}	
-		printf("\nend child function");
-		fflush(stdout);
 		exit(EXIT_FAILURE);
 			///
 	}else {
@@ -185,9 +183,6 @@ int execute()
 			fflush(stdout);
 			for(i = 0; i < num_done_strs; i++)
 			{
-				printf("\nbackground print done!");
-				printf("\nint i: %d", i);
-				printf("\ndone_strs[i]: %s", done_strs[i]);
 				printf("%s", done_strs[i]);
 				fflush(stdout);
 			} 
@@ -226,7 +221,6 @@ void signal_done_background()
 			i++;
 		}
 
-		printf("\nOver here!\n");
         sprintf(done_str, "[%d]\tDone\t%d\n", background_list[i].number, background_list[i].pid); 
 		done_strs[num_done_strs] = done_str;
 
