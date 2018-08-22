@@ -83,8 +83,6 @@ int main(void)
 		{
 			run_args();
 		}
-		printf("\n bottom of while loop");
-		fflush(stdout);
 	}
 	return 0;
 }
@@ -225,12 +223,7 @@ void signal_done_background()
 		}
 
         sprintf(done_str, "[%d]\tDone\t%d\n", background_list[i].number, background_list[i].pid); 
-		printf("\npassed sprintf\n");
-		printf("%s", done_strs[0]);
-		fflush(stdout);
 		done_strs[num_done_strs] = done_strs;
-		printf("\npassed strcpy");
-		fflush(stdout);
 
         num_done_strs++;
 
@@ -259,7 +252,6 @@ void remove_bg_elem(pid_t pid)
 			num_background--;      
         }
     }
-	printf("\nend rm bg function");
 	fflush(stdout);
 }
 
