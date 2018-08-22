@@ -293,8 +293,9 @@ void signal_done_background()
 			i++;
 		}
 
-
-        int char_check = sprintf(done_str, "[%d]\tDone\t%d\n", background_list[i].number, background_list[i].pid); 
+        sprintf(done_str, "[%d]", background_list[i].number;
+		printf("\npassedfurst sprintf");
+        sprintf(done_str, "[%d]\tDone\t%d\n", background_list[i].number, background_list[i].pid); 
 		printf("\npassed sprintf");
 		fflush(stdout);
 		strcpy(done_strs[num_done_strs], done_str);
