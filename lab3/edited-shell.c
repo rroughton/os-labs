@@ -261,7 +261,7 @@ void remove_bg_elem(pid_t pid)
 // runs cd method. Primarily utilizes chdir() method.
 void execute_cd()
 {
-	if (arg[1] == NULL)
+	if (args[1] == NULL)
 	{
 		chdir(getenv("HOME"));
 	} else {
