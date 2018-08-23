@@ -446,7 +446,7 @@ void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 	int i = 0;
 	int fd[2];
 
-	char first_arg[100];
+	char *first_arg[2] = {"", NULL};
 	char *rest_of_args[81];
 
 	// if its of size 1, base case
@@ -460,7 +460,7 @@ void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 	}
 
 	// recursive case, split args into the first on and the rest of them
-	strcpy(first_arg, recursive_pipe_args[0]);
+	strcpy(first_arg[0], recursive_pipe_args[0]);
 	for (i = 0; i < (num_pipes); i++)
 	{
 		rest_of_args[i] = malloc(81);
@@ -481,7 +481,7 @@ void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 	}
 	close (fd[1]);
 	dup2(fd[0], 1);
-	exec(first_arg);
+	execvp(first_arg[0], first_arg);
 }
 
 // function recursive_piping(commands)
