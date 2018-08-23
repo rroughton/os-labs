@@ -58,7 +58,7 @@ void execute_cd(void);
 void clear_all(void);
 void redirect(void);
 void execute_piping(void); 
-void recursive(char *recursive_pipe_args[MAX_ARGS])
+void recursive(char *recursive_pipe_args[MAX_ARGS]);
 
 
 //
