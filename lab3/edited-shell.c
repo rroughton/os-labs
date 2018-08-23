@@ -56,6 +56,7 @@ void clear_args(void);
 void execute_cd(void);
 void clear_all(void);
 void redirect(void);
+void execute_piping(void); 
 
 
 //
@@ -379,7 +380,7 @@ void clear_all()
 	num_args = 0;
 	num_done_strs = 0;
 	num_pipes = 0;
-	redirect_location 0;
+	redirect_location = 0;
 }
 
 void execute_piping()
