@@ -215,12 +215,13 @@ int set_flags()
 			flags[5] = 0;
 		}
 	}
-
-			for(i = 0; i < num_pipes; i++)
-		{
-			printf("\npipe_arg at %d: %s", i, pipe_args[i]);
-			fflush(stdout);
-		}
+	printf("Here!");
+	fflush(stdout);
+	for(i = 0; i < num_pipes; i++)
+	{
+		printf("\npipe_arg at %d: %s", i, pipe_args[i]);
+		fflush(stdout);
+	}
 
 	if (flags[4])
 	{
