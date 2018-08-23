@@ -245,6 +245,7 @@ int set_flags()
 
 int run_args(void)
 {
+	int i = 0;
 	for (i = 0; i < 10; i++)
 	{
 		printf("\nrn_args pipe_args[%d]: %s", i, pipe_args[i]);
