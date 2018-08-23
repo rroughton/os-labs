@@ -476,8 +476,7 @@ void redirect()
 
 		if(execvp(args[0], args) == -1){
 			printf("\nExecute didn't work");
-			fflush(stdout);			
-			return 0;
+			fflush(stdout);	
 		}	
 		exit(EXIT_FAILURE);
 	}
