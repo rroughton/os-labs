@@ -443,7 +443,7 @@ void execute_piping()
 
 	for (i = 0; i < 80; i++)
 	{
-		pipes_args_copy[i] = malloc(81);
+		pipe_args_copy[i] = malloc(81);
 		strcpy(pipe_args_copy[i],pipe_args[i]);
 	}
 	recursive_piping(pipe_args_copy);
