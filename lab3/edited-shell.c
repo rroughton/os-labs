@@ -230,7 +230,7 @@ int set_flags()
 		}
 
 		char pipe_arg_final[MAX_ARGS] = "";
-		for (k = pipe_locations[num_pipes]; k < num_args; k++)
+		for (k = pipe_locations[num_pipes] + 1; k < num_args; k++)
 		{
 			strcat(pipe_arg_final, args[k]);
 			strcat(pipe_arg_final, " ");
