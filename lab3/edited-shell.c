@@ -215,15 +215,15 @@ int set_flags()
 	if (flags[4])
 	{
 		int j;
-		char pipe_arg[MAX_ARGS] = "";
+		char pipe_arg_final[MAX_ARGS] = "";
 		pipe_locations[num_pipes] = i;
 		// starts at the most recent pipe location
 		for (j = pipe_locations[num_pipes]; j < num_args; j++)
 		{
-			strcat(pipe_arg, args[j]);
-			strcat(pipe_arg, " ");
+			strcat(pipe_arg_final, args[j]);
+			strcat(pipe_arg_final, " ");
 		}
-		strcpy(pipe_args[num_pipes], pipe_arg);
+		strcpy(pipe_args[num_pipes], pipe_arg_final);
 		num_pipes++;
 	}
 	return 1;
