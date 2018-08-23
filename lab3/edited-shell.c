@@ -232,6 +232,8 @@ int set_flags()
 		}
 
 		char pipe_arg_final[MAX_ARGS] = "";
+		printf("\npipe location at num_pipes at %d", pipe_locations[num_pipes]);
+		fflush(stdout);
 		for (k = (pipe_locations[num_pipes] + 1); k < num_args; k++)
 		{
 			printf("\nk %d:", k);
