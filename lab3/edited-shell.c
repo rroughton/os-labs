@@ -94,6 +94,11 @@ int main(void)
 		num_args = i;
 
 		should_run = set_flags();
+		for (i = 0; i < 10; i++)
+	{
+		pipe_args_copy[i] = pipe_args[i];
+		printf("\nmain pipe_args_copy[%d]: %s", i, pipe_args_copy[i]);
+	}
 		if (should_run)
 		{
 			run_args();
