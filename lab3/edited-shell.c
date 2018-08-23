@@ -495,30 +495,31 @@ void redirect()
 
 int start_pipe()
 {
-	int insert_i = 0;
-	int command_i = 0;
-	int args_i=0;
+	int i = 0;
+	int j = 0;
+	int k=0;
 	
-	char * commands[num_pipes+1][MAX_ARGS];
+	char * pipe_arguments[num_pipes+1][MAX_ARGS];
 
-	for(command_i = 0; command_i < num_pipes+1; command_i++)
+	for(j = 0; j < num_pipes+1; j++)
 	{
-
-		while((args[args_i] != NULL) && (strcmp(args[args_i], "|") != 0))
+		while((args[k] != NULL))
 		{
-			commands[command_i][insert_i] = args[args_i];
-			
-			insert_i++;
-			args_i++;
+			if (strcmp(args[k], "|") != 0)
+			{
+				pipe_arguments[j][i] = args[k];	
+				i++;
+				k++;
+			}
 		}
-		commands[command_i][insert_i] = NULL;
+		pipe_arguments[j][i] = NULL;
 
-		insert_i = 0;
+		i = 0;
 	}
-	return execute_pipes_test(commands);
+	return execute_pipes_test(pipe_arguments);
 }
 
-int execute_pipes_test(char *** commands)
+int execute_pipes_test(char *** pipe_arguments)
 {
 	int last_command = num_pipes+1;
 	int i = 0;
@@ -534,7 +535,7 @@ int execute_pipes_test(char *** commands)
 		
 		dup2(pipefds[1], output);
 		close(pipefds[1]);
-		execvp(commands[0][0], commands[0]);
+		execvp(pipe_arguments[0][0], pipe_arguments[0]);
 	}
 
 	input = pipefds[0];
@@ -555,7 +556,7 @@ int execute_pipes_test(char *** commands)
 				dup2(output, 1);
 				close(output);
 			}
-			execvp(commands[i][0], commands[i]);
+			execvp(pipe_arguments[i][0], pipe_arguments[i]);
 		}
 		close(pipefds[1]);
 		input = pipefds[0];
@@ -566,6 +567,6 @@ int execute_pipes_test(char *** commands)
 		dup2(input, 0);	
 	}
 
-	execvp(commands[last_command][0], commands[last_command]);
+	execvp(pipe_arguments[last_command][0], pipe_arguments[last_command]);
 	return 1;
 }
