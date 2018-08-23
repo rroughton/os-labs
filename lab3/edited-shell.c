@@ -445,6 +445,8 @@ void execute_piping()
 	{
 		pipe_args_copy[i] = malloc(81);
 		strcpy(pipe_args_copy[i],pipe_args[i]);
+		printf(pipe_args_copy[i]);
+		fflush(stdout);
 	}
 	recursive_piping(pipe_args_copy);
 }
