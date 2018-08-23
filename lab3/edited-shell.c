@@ -171,8 +171,6 @@ int set_flags()
 				strcat(pipe_arg, " ");
 			}
 
-			printf(pipe_arg);
-			fflush(stdout);
 			pipe_args[num_pipes] = malloc(81);
 			strcpy(pipe_args[num_pipes], pipe_arg);
 			pipe_locations[num_pipes] = i;
@@ -308,19 +306,11 @@ int execute()
 			bg_elem.full_command[i++] = NULL;
 
 			background_list[num_background-1] = bg_elem;
-			for(i = 0; i < num_done_strs; i++)
-			{
-				printf("%s", done_strs[i]);
-				fflush(stdout);
-			} 
+
 			num_done_strs = 0;
 
 		} else {
-			for(i = 0; i < num_done_strs; i++)
-			{
-				printf("%s", done_strs[i]);
-				fflush(stdout);
-			} 
+
 			num_done_strs = 0;
 			do{
 				// wait for child to finish
