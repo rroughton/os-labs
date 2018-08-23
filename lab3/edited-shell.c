@@ -166,6 +166,9 @@ int set_flags()
 
 			printf("\nAbove for loop");
 			printf("\nnum_pipes:%d", num_pipes );
+				printf("\nPipe_locations[num_pipes:%d", pipe_locations[num_pipes]) ;
+				printf("\n ") ;
+
 			fflush(stdout);
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
