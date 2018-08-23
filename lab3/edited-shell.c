@@ -174,7 +174,7 @@ int set_flags()
 			{
 				printf("\nToo many redirects");
 				fflush(stdout);
-				return 1;
+				return 0;
 			} 	
 
 			flags[5] = 1;
@@ -191,7 +191,7 @@ int set_flags()
 			if (flags[5] == 1 || flags[6] == 1) {
 				printf("\nToo many redirects");
 				fflush(stdout);
-				return 1;
+				return 0;
 			}
 			flags[6] = 1;
 			redirect_location = i;
