@@ -163,6 +163,8 @@ int set_flags()
 			// starts at the most recent pipe location
 
 			strcpy(pipe_arg, "");
+			printf("\nhere1");
+			fflush(stdout);
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
