@@ -163,8 +163,6 @@ int set_flags()
 			
 			// starts at the most recent pipe location
 
-				printf("\nhere2");
-			fflush(stdout);
 			strcpy(pipe_arg, "");
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
@@ -177,10 +175,6 @@ int set_flags()
 			fflush(stdout);
 			pipe_args[num_pipes] = malloc(81);
 			strcpy(pipe_args[num_pipes], pipe_arg);
-			printf("\nhere3");
-			fflush(stdout);
-			printf("pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
-			fflush(stdout);
 			pipe_locations[num_pipes] = i;
 			num_pipes++;
 
@@ -236,16 +230,18 @@ int set_flags()
 		
 		// starts at the most recent pipe location
 
-		char pipe_arg_final[MAX_ARGS] = {'\0'};
+		char *pipe_arg_final = malloc(81);
+
+		strcpy(pipe_arg_final, "");
 
 		for (k = (pipe_locations[num_pipes-1] + 1); k < num_args; k++)
 		{
-			// strcat(pipe_arg_final, args[k]);
-			// strcat(pipe_arg_final, " ");
+			strcat(pipe_arg_final, args[k]);
+			strcat(pipe_arg_final, " ");
 		}
 
-
-		pipe_args[num_pipes] = pipe_arg_final;
+		pipe_args[num_pipes] = malloc(81);
+		strcpy(pipe_args[num_pipes],pipe_arg_final);
 		
 	}
 
