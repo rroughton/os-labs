@@ -53,7 +53,7 @@ int run_child(void);
 void clear_args(void);
 void execute_cd(void);
 void clear_all(void);
-void redirect(void)
+void redirect(void);
 
 int main(void)
 {
