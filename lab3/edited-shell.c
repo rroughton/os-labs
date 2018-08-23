@@ -163,8 +163,6 @@ int set_flags()
 			// starts at the most recent pipe location
 
 			strcpy(pipe_arg, "");
-			printf("\nhere1");
-			fflush(stdout);
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
@@ -172,9 +170,10 @@ int set_flags()
 				strcat(pipe_arg, " ");
 			}
 
-			printf("\nhere2");
-			fflush(stdout);
+
 			strcpy(pipe_args[num_pipes], pipe_arg);
+			printf("\nhere3");
+			fflush(stdout);
 			printf("pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
 			fflush(stdout);
 			pipe_locations[num_pipes] = i;
