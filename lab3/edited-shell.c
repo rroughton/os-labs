@@ -234,6 +234,11 @@ int set_flags()
 
 		pipe_args[num_pipes] = pipe_arg_final;
 	}
+
+	for (i = 0; i < 10; i++)
+	{
+		printf("\npipe_args[%d]: %s", i, pipe_args[i]);
+	}
 	return 1;
 }
 
