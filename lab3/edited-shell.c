@@ -462,26 +462,18 @@ void redirect()
 		fflush(stdout);
 	}
 
-	printf(file_string);
+	printf("\n\n\n******\nfile_string: %s", file_string);
 	fflush(stdout);
-	in = open(file_string, O_RDONLY);
-  	out = open(file_string, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
-
-  // replace standard input with input file
-
-  	dup2(in, 0);
-
-  // replace standard output with output file
-
-  	dup2(out, 1);
-
-  // close unused file descriptors
-
-  	close(in);
- 	close(out);
-
-  // execute grep
-
-  execvp(args[0], args);
+	if (flags[5] == 1)
+	{
+		in = open(file_string, O_RDONLY);
+		dup2(in, 0);
+		close(in);
+	} else if (flags[6]) {
+		dup2(out, 1);
+		out = open(file_string, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+		close(out);
+	}
+	execvp(args[0], args);
 	
 }
