@@ -401,9 +401,6 @@ void execute_piping()
 // does both output and input redirection
 void redirect()
 {
-	printf("\nreached here!");
-	fflush(stdout);	
-
 	pid_t child, wpid;
 	int status;
 	int i = 0;
@@ -421,7 +418,7 @@ void redirect()
 	else if(child == 0){
 		if(flags[5]){//Input
 			int file_desc_in = open(file_string, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
-			dup2(file_desc_in, STDIN_FILENO);
+			dup2(file_desc_in, 0);
 			close(file_desc_in);
 			if(execvp(args[0], args) == -1)
 			{
@@ -434,7 +431,6 @@ void redirect()
 		{
 			int file_desc_out = open(file_string, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 			dup2(file_desc_out, 1);
-			dup2(file_desc_out, 2);
 			close(file_desc_out);
 			if(execvp(args[0], args) == -1)
 			{
