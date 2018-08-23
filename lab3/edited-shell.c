@@ -179,7 +179,7 @@ int set_flags()
 
 			flags[5] = 1;
 			redirect_location = i;
-			file_string = args[redirect_location - 1];
+			strcpy(file_string, args[redirect_location - 1]);
 		} else {
 			flags[5] = 0;
 		}
@@ -196,7 +196,7 @@ int set_flags()
 			}
 			flags[6] = 1;
 			redirect_location = i;
-			file_string = args[redirect_location + 1];
+			strcpy(file_string, args[redirect_location + 1]);
 		} else {
 			flags[5] = 0;
 		}
