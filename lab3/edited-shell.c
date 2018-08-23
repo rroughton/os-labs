@@ -107,7 +107,6 @@ int main(void)
 int set_flags()
 {
 	int i = 0;
-	char *pipe_arg = malloc(81);
 
 	if (strcmp(args[0], "exit") == 0)
 	{ 
@@ -156,6 +155,8 @@ int set_flags()
 		// checks if token is a pipe.
 		if (strcmp(args[i], "|") == 0)
 		{
+			char *pipe_arg = malloc(81);
+
 			flags[4] = 1;
 
 			int j;
@@ -164,7 +165,7 @@ int set_flags()
 
 				printf("\nhere2");
 			fflush(stdout);
-			strcpy(pipe_arg, "");
+			strcpy(pipe_arg, "asd");
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
