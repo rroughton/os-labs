@@ -176,7 +176,10 @@ int set_flags()
 				fflush(stdout);
 			}
 
-			printf("above last strcpy");
+			printf("pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
+			fflush(stdout);
+
+			printf("pipe_arg: %s", pipe_arg;
 			fflush(stdout);
 
 			strcpy(pipe_args[num_pipes], pipe_arg);
