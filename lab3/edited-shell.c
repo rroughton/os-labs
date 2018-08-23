@@ -166,7 +166,7 @@ int set_flags()
 				strcat(pipe_arg, args[j]);
 				strcat(pipe_arg, " ");
 
-				printf(pipe_args);
+				printf(pipe_arg);
 				fflush(stdout);
 			}
 			strcpy(pipe_args[num_pipes], pipe_arg);
@@ -549,7 +549,7 @@ int execute_pipes_test(char *** commands)
 				dup2(input, 0);
 				close(input);
 			}
-			
+
 			if(output != 1)
 			{
 				dup2(output, 1);
