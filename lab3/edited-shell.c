@@ -169,8 +169,6 @@ int set_flags()
 
 			pipe_args[num_pipes] = pipe_arg;
 			pipe_locations[num_pipes] = i;
-			printf("\npipe location at num_pipes at %d", pipe_locations[num_pipes]);
-			fflush(stdout);
 			num_pipes++;
 
 		} else {
@@ -225,28 +223,16 @@ int set_flags()
 		
 		// starts at the most recent pipe location
 
-		for(i = 0; i < num_pipes; i++)
-		{
-			printf("\npipe_arg at %d: %s", i, pipe_args[i]);
-			fflush(stdout);
-		}
 
 		char pipe_arg_final[MAX_ARGS] = "";
 
 		for (k = (pipe_locations[num_pipes-1] + 1); k < num_args; k++)
 		{
-			printf("\nk %d:", k);
-			fflush(stdout);
 			strcat(pipe_arg_final, args[k]);
 			strcat(pipe_arg_final, " ");
 		}
 
-		pipe_args[num_pipes] = pipe_arg_final;;
-		for(i = 0; i < num_pipes+1; i++)
-		{
-			printf("\npipe_arg at %d: %s", i, pipe_args[i]);
-			fflush(stdout);
-		}
+		pipe_args[num_pipes] = pipe_arg_final;
 	}
 	return 1;
 }
@@ -260,7 +246,6 @@ int run_args(void)
 
 	// do piping
 	} else if (flags[4]){
-		setup_pipe();
 		execute_piping();
 		return 1;
 
@@ -421,7 +406,7 @@ void clear_all()
 		//background_element[i] == NULL;
 		flags[i] = 0;
 		pipe_locations[i] = 0;
-		pipe_args[i] = "AA";
+		pipe_args[i] = NULL;
 
 	}
 
@@ -443,25 +428,29 @@ void clear_all()
 
 void execute_piping()
 {
-	
+	char*pipe_args_copy[10];
+	int i = 0;
+	for (i = 0; i < 10; i++)
+	{
+		pipe_args_copy[i] = pipe_args[i];
+		printf("\npipe_args_copy[%d]: %s", i, pipe_args_copy[i]);
+	}
+	//recursive_piping(pipe_args);
 }
 
-recursive_piping(char *pipe_args[MAX_ARGS])
+recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 {
 	char first_arg[100];
 	char *rest_of_args[80];
-	if (pipe_args[1] == NULL)
+	if (recursive_pipe_args[1] == NULL)
 	{
-		if(execvp(pipe_args[0], args) == -1){
+		if(execvp(recursive_pipe_args[0], args) == -1){
 			printf("\nExecute didn't work");
 			fflush(stdout);		
 			return 0;
 		}
 	}
-
-
 }
-
 
 
 // does both output and input redirection
@@ -514,79 +503,79 @@ void redirect()
 	}	
 }
 
-int setup_pipe()
-{
-	int i = 0;
-	int j = 0;
-	int k=0;
+// int setup_pipe()
+// {
+// 	int i = 0;
+// 	int j = 0;
+// 	int k=0;
 	
-	char * pipe_arguments[num_pipes+1][MAX_ARGS];
+// 	char * pipe_arguments[num_pipes+1][MAX_ARGS];
 
-	for(j = 0; j < num_pipes+1; j++)
-	{
-		while((args[k] != NULL))
-		{
-			if (strcmp(args[k], "|") != 0)
-			{
-				pipe_arguments[j][i] = args[k];	
-				i++;
-				k++;
-			}
-		}
-		pipe_arguments[j][i] = NULL;
+// 	for(j = 0; j < num_pipes+1; j++)
+// 	{
+// 		while((args[k] != NULL))
+// 		{
+// 			if (strcmp(args[k], "|") != 0)
+// 			{
+// 				pipe_arguments[j][i] = args[k];	
+// 				i++;
+// 				k++;
+// 			}
+// 		}
+// 		pipe_arguments[j][i] = NULL;
 
-		i = 0;
-	}
-	return execute_pipes_test(pipe_arguments);
-}
+// 		i = 0;
+// 	}
+// 	return execute_pipes_test(pipe_arguments);
+// }
 
-int execute_pipes_test(char *** pipe_arguments)
-{
-	int last_pipe_argument = num_pipes+1;
-	int i = 0;
-	int output = 1;
-	int input = 0;
+// int execute_pipes_test(char *** pipe_arguments)
+// {
+// 	int last_pipe_argument = num_pipes+1;
+// 	int i = 0;
+// 	int output = 1;
+// 	int input = 0;
 
-	pid_t pid;
-	int fds[2];
+// 	pid_t pid;
+// 	int fds[2];
 
-	if((pid = fork()) == 0){
+// 	if((pid = fork()) == 0){
 		
-		dup2(fds[1], output);
-		close(fds[1]);
-		execvp(pipe_arguments[0][0], pipe_arguments[0]);
-	}
+// 		dup2(fds[1], output);
+// 		close(fds[1]);
+// 		execvp(pipe_arguments[0][0], pipe_arguments[0]);
+// 	}
 
-	input = fds[0];
-	for(i = 1; i < last_pipe_argument; i++)
-	{
-		// if child process
-		if((pid = fork()) == 0)
-		{
-			// if the input has been set
-			if(input != 0)
-			{
-				dup2(input, 0);
-				close(input);
-			}
+// 	input = fds[0];
+// 	for(i = 1; i < last_pipe_argument; i++)
+// 	{
+// 		// if child process
+// 		if((pid = fork()) == 0)
+// 		{
+// 			// if the input has been set
+// 			if(input != 0)
+// 			{
+// 				dup2(input, 0);
+// 				close(input);
+// 			}
 
-			// if the output has been set
-			if(output != 1)
-			{
-				dup2(output, 1);
-				close(output);
-			}
-			execvp(pipe_arguments[i][0], pipe_arguments[i]);
-		}
-		close(fds[1]);
-		input = fds[0];
-	}
+// 			// if the output has been set
+// 			if(output != 1)
+// 			{
+// 				dup2(output, 1);
+// 				close(output);
+// 			}
+// 			execvp(pipe_arguments[i][0], pipe_arguments[i]);
+// 		}
+// 		close(fds[1]);
+// 		input = fds[0];
+// 	}
 
-	if(input != 0)
-	{
-		dup2(input, 0);	
-	}
+// 	if(input != 0)
+// 	{
+// 		dup2(input, 0);	
+// 	}
 
-	execvp(pipe_arguments[last_pipe_argument][0], pipe_arguments[last_pipe_argument]);
-	return 1;
-}
+// 	execvp(pipe_arguments[last_pipe_argument][0], pipe_arguments[last_pipe_argument]);
+// 	return 1;
+// }
