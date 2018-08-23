@@ -225,7 +225,7 @@ int set_flags()
 		// starts at the most recent pipe location
 
 
-		char pipe_arg_final[MAX_ARGS] = "";
+		char pipe_arg_final[MAX_ARGS] = {'\0'};
 
 		for (k = (pipe_locations[num_pipes-1] + 1); k < num_args; k++)
 		{
