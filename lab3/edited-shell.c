@@ -150,7 +150,7 @@ int set_flags()
 	for (i = 0; i < num_args; i++)
 	{
 		// checks if token is a pipe.
-		if (strcmp(args[i]), "|") == 0)
+		if (strcmp(args[i], "|") == 0)
 		{
 			flags[4] = 1;
 			pipe_locations[num_pipes];
