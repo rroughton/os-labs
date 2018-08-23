@@ -226,9 +226,9 @@ int set_flags()
 		
 		// starts at the most recent pipe location
 
-				printf("pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
+				printf("\n1pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
 		fflush(stdout);
-		printf("pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
+		printf("\n1pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
 		fflush(stdout);
 		char pipe_arg_final[MAX_ARGS] = {'\0'};
 
@@ -238,15 +238,15 @@ int set_flags()
 			strcat(pipe_arg_final, " ");
 		}
 
-				printf("pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
+				printf("\n2pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
 		fflush(stdout);
-		printf("pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
+		printf("\n2pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
 		fflush(stdout);
-		
+
 		pipe_args[num_pipes] = pipe_arg_final;
-		printf("pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
+		printf("\n3pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
 		fflush(stdout);
-		printf("pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
+		printf("\n3pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
 		fflush(stdout);
 		
 	}
