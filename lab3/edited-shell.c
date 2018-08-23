@@ -436,6 +436,13 @@ void execute_piping()
 			pipe_args_copy[i] = malloc(81);
 			strcpy(pipe_args_copy[i],pipe_args[i]);
 	}
+	for (i = 0; i < (num_pipes+1); i++)
+	{
+		
+		printf("firstLoop i = %d", i);
+		printf(pipe_args_copy[i]);
+		fflush(stdout);
+	}
 	recursive_piping(pipe_args_copy);
 }
 
@@ -444,7 +451,9 @@ recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 	int i = 0;
 	for (i = 0; i < (num_pipes+1); i++)
 	{
-		printf(recursive_pipe_args[1]);
+		
+		printf("secondLoop i = %d", i);
+		printf(recursive_pipe_args[i]);
 		fflush(stdout);
 	}
 	char first_arg[100];
