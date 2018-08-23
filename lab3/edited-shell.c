@@ -9,6 +9,8 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <signal.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 #define MAX_LINE    80
 #define MAX_ARGS    MAX_LINE/2+1
