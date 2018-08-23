@@ -158,7 +158,7 @@ int set_flags()
 			
 			int j;
 			char pipe_arg[MAX_ARGS] = "";
-			pipe_location[num_pipes] = i;
+			pipe_locations[num_pipes] = i;
 			// starts at the most recent pipe location
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
@@ -212,7 +212,7 @@ int set_flags()
 		}
 	}
 
-	if (flag[4])
+	if (flags[4])
 	{
 		int j;
 		char pipe_arg[MAX_ARGS] = "";
@@ -418,10 +418,10 @@ void clear_all()
 
 void execute_piping()
 {
-	char *[]
+	
 }
 
-recursive_piping(char *[] pipe_args)
+recursive_piping(char *pipe_args[MAX_ARGS])
 {
 	char first_arg[100];
 	char *rest_of_args[80];
