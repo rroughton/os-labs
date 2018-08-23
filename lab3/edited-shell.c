@@ -166,8 +166,8 @@ int set_flags()
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
-				strcat(pipe_arg, args[j]);
-				strcat(pipe_arg, " ");
+				// strcat(pipe_arg, args[j]);
+				// strcat(pipe_arg, " ");
 			}
 
 			printf(pipe_arg);
@@ -236,8 +236,8 @@ int set_flags()
 
 		for (k = (pipe_locations[num_pipes-1] + 1); k < num_args; k++)
 		{
-			strcat(pipe_arg_final, args[k]);
-			strcat(pipe_arg_final, " ");
+			// strcat(pipe_arg_final, args[k]);
+			// strcat(pipe_arg_final, " ");
 		}
 
 
