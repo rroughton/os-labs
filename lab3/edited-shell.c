@@ -43,6 +43,7 @@ int pipe_locations[MAX_ARGS];
 int num_pipes = 0;
 int redirect_location;
 char file_string[MAX_LINE];
+char *pipe_args[MAX_ARGS];
 
 int set_flags(void);
 int run_args(void);
@@ -215,7 +216,7 @@ int set_flags()
 	{
 		int j;
 		char pipe_arg[MAX_ARGS] = "";
-		pipe_location[num_pipes] = i;
+		pipe_locations[num_pipes] = i;
 		// starts at the most recent pipe location
 		for (j = pipe_locations[num_pipes]; j < num_args; j++)
 		{
