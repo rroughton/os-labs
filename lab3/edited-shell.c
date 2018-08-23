@@ -172,6 +172,8 @@ int set_flags()
 				strcat(pipe_arg, " ");
 			}
 
+			printf("\nhere2");
+			fflush(stdout);
 			strcpy(pipe_args[num_pipes], pipe_arg);
 			printf("pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
 			fflush(stdout);
