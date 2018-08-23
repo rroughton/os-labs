@@ -172,7 +172,7 @@ int set_flags()
 				strcat(pipe_arg, args[j]);
 				strcat(pipe_arg, " ");
 
-				printf(pipe_arg);
+				printf("pipe_arg: %s", pipe_arg);
 				fflush(stdout);
 			}
 
