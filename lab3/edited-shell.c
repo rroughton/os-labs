@@ -169,6 +169,8 @@ int set_flags()
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
+				printf("\nargs[j]: %s", args[j]);
+				fflush(stdout);
 				strcat(pipe_arg, args[j]);
 				strcat(pipe_arg, " ");
 
