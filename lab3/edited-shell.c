@@ -156,7 +156,7 @@ int set_flags()
 		{
 			flags[4] = 1;
 			
-			printf("J hasn't been set");
+			printf("\nJ hasn't been set");
 			fflush(stdout);
 
 			int j;
@@ -164,7 +164,7 @@ int set_flags()
 			pipe_locations[num_pipes] = i;
 			// starts at the most recent pipe location
 
-			printf("Above for loop");
+			printf("\nAbove for loop");
 			fflush(stdout);
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
@@ -172,20 +172,20 @@ int set_flags()
 				strcat(pipe_arg, args[j]);
 				strcat(pipe_arg, " ");
 
-				printf("pipe_arg: %s", pipe_arg);
+				printf("\npipe_arg: %s", pipe_arg);
 				fflush(stdout);
 			}
 
-			printf("pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
+			printf("\npipe_args[num_pipes]: %s", pipe_args[num_pipes]);
 			fflush(stdout);
 
-			printf("pipe_arg: %s", pipe_arg);
+			printf("\npipe_arg: %s", pipe_arg);
 			fflush(stdout);
 
 			strcpy(pipe_args[num_pipes], pipe_arg);
 			num_pipes++;
 
-			printf("below last strcpy");
+			printf("\nbelow last strcpy");
 			fflush(stdout);
 
 		} else {
