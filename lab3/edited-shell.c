@@ -435,7 +435,7 @@ void clear_all()
 		//background_element[i] == NULL;
 		flags[i] = 0;
 		pipe_locations[i] = 0;
-		pipe_args[i] = NULL;
+		pipe_args[i] = "A";
 
 	}
 
