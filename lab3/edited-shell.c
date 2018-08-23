@@ -452,7 +452,7 @@ void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 	// if its of size 1, base case
 	if (recursive_pipe_args[1] == NULL)
 	{
-		if(execvp(recursive_pipe_args[0], recursive_pipe_args[0]) == -1){
+		if(execvp(recursive_pipe_args[0], recursive_pipe_args) == -1){
 			printf("\nExecute didn't work");
 			fflush(stdout);	
 		}
