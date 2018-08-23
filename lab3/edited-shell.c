@@ -401,6 +401,7 @@ void execute_piping()
 // does both output and input redirection
 void redirect()
 {
+	/*
 	pid_t child, wpid;
 	int status;
 	int i = 0;
@@ -418,6 +419,7 @@ void redirect()
 	else if(child == 0){
 		if(flags[5]){//Input
 			int file_desc_in = open(file_string, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+			if (file_desc_in)
 			dup2(file_desc_in, 0);
 			close(file_desc_in);
 			if(execvp(args[0], args) == -1)
@@ -446,6 +448,36 @@ void redirect()
 		{
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));	
-	}		
+	}	*/
+
+	int in, out;
+  	for (i = redirect_location; i < num_args; i++)
+	{
+		printf(args[i]);
+		fflush(stdout);
+		args[i] = NULL;
+	}
+
+	printf(file_string);
+	fflush(stdout);
+	in = open(file_string, O_RDONLY);
+  	out = open(file_string, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+
+  // replace standard input with input file
+
+  	dup2(in, 0);
+
+  // replace standard output with output file
+
+  	dup2(out, 1);
+
+  // close unused file descriptors
+
+  	close(in);
+ 	close(out);
+
+  // execute grep
+
+  execvp(args[0], args);
 	
 }
