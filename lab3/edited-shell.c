@@ -200,20 +200,19 @@ int run_args(void)
 		execute_cd();
 		return 1;
 
+	// do piping
 	} else if (flags[4]){
 
 		execute_piping();
 		return 1;
-	} else if (flags[5]) {
 
-		execute_input_redirect();
+	} else if (flags[5] || flags[6]) {
+
+		redirect();
 		return 1;
-	} else if (flags[6]) {
-
-		execute_output_redirect();
-		return 1
 	} else {
 		return execute();
+		return 1;
 	}
 }
 
@@ -398,6 +397,8 @@ void execute_output_redirect()
 
 }
 
+
+// does both output and input redirection
 void redirect()
 {
 
@@ -416,9 +417,11 @@ void redirect()
 			int file_desc_in = open(file_string, O_RDONLY, 0);
 			dup2(file_desc_in, STDIN_FILENO);
 			close(file_desc_in);
-
 		}
-		else if(flags[6]){//Output
+
+		// do output
+		else if(flags[6])
+		{
 			printf("\nOutputFile?:%s", file_string);
 			int file_desc_out = creat(file_string, 0644);
 			dup2(file_desc_out, STDOUT_FILENO);
@@ -426,7 +429,8 @@ void redirect()
 			
 		}
 
-		if(execvp(args[0], args) == -1){
+		if(execvp(args[0], args) == -1)
+		{
 			printf("\nChild execution failed");	
 		}
 		exit(EXIT_FAILURE);
