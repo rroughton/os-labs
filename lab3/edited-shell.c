@@ -454,7 +454,7 @@ recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 	int i = 0;
 	for (i = 0; i < (num_pipes+1); i++)
 	{
-		printf(recursive_pipe_args[i]);
+		printf(recursive_pipe_args[1]);
 	}
 	char first_arg[100];
 	char *rest_of_args[80];
