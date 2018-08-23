@@ -217,15 +217,15 @@ int set_flags()
 
 	if (flags[4])
 	{
-		int j;
+		int k;
 		i = 0;
 		char pipe_arg[MAX_ARGS] = "";
 		
 		// starts at the most recent pipe location
 
-		for (j = pipe_locations[num_pipes]; j < num_args; j++)
+		for (k = pipe_locations[num_pipes]; k < num_args; k++)
 		{
-			strcat(pipe_arg, args[j]);
+			strcat(pipe_arg, args[k]);
 			strcat(pipe_arg, " ");
 		}
 
@@ -233,6 +233,7 @@ int set_flags()
 		for(i = 0; i < num_pipes+1; i++)
 		{
 			printf("pipe_arg at %d: %s", i, pipe_args[i]);
+			fflush(stdout);
 		}
 	}
 	return 1;
