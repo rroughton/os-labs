@@ -186,12 +186,8 @@ int set_flags()
 				fflush(stdout);
 			}
 
-			printf("\nj: %d", j);
-			printf("\ni: %d", i);
-			fflush(stdout);
-
-			printf("\npipe_args[num_pipes]: %s", pipe_args[num_pipes]);
-			fflush(stdout);
+			// printf("\npipe_args[num_pipes]: %s", pipe_args[num_pipes]);
+			// fflush(stdout);
 
 			printf("\npipe_arg: %s", pipe_arg);
 			fflush(stdout);
