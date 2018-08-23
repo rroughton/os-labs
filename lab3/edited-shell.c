@@ -460,7 +460,7 @@ void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 	}
 
 	// recursive case, split args into the first on and the rest of them
-	strcpy(first_arg[0], recursive_pipe_args[0]);
+	first_arg[0] = recursive_pipe_args[0];
 	for (i = 0; i < (num_pipes); i++)
 	{
 		rest_of_args[i] = malloc(81);
