@@ -43,7 +43,7 @@ int pipe_locations[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int num_pipes = 0;
 int redirect_location;
 char file_string[MAX_LINE];
-char *pipe_args[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+char *pipe_args = malloc(11);
 
 int set_flags(void);
 int run_args(void);
