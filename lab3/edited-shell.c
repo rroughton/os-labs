@@ -58,6 +58,7 @@ void execute_cd(void);
 void clear_all(void);
 void redirect(void);
 void execute_piping(void); 
+void recursive(char *recursive_pipe_args[MAX_ARGS])
 
 
 //
@@ -446,7 +447,7 @@ void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 	int fd[2];
 
 	char first_arg[100];
-	char *rest_of_args[81] = malloc(81);
+	char *rest_of_args[81];
 
 	// if its of size 1, base case
 	if (recursive_pipe_args[1] == NULL)
