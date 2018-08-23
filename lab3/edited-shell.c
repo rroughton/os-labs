@@ -372,7 +372,7 @@ void clear_all()
 	{
 		args[i] = NULL;
 		done_strs[i] = NULL;
-		pipe_locations[i] = NULL;
+		pipe_locations[i] = 0;
 	}
 
 	num_background = 0;
