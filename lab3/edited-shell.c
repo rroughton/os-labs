@@ -32,8 +32,6 @@ struct background_element
 struct history_element history_list[10];
 struct background_element background_list[MAX_BG];
 
-char pipe_arg[MAX_ARGS] = {'\0'};
-
 int num_background = 0;
 int num_history = 0;
 char *args[MAX_ARGS];
@@ -109,6 +107,7 @@ int main(void)
 int set_flags()
 {
 	int i = 0;
+	char *pipe_arg = malloc(81);
 
 	if (strcmp(args[0], "exit") == 0)
 	{ 
@@ -170,8 +169,7 @@ int set_flags()
 				strcat(pipe_arg, " ");
 			}
 
-			pipe_args[num_pipes] = pipe_arg;
-			pipe_arg = {'\0'};
+			strcpy(pipe_args[num_pipes], pipe_arg);
 			printf("pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
 			fflush(stdout);
 			pipe_locations[num_pipes] = i;
@@ -229,16 +227,16 @@ int set_flags()
 		
 		// starts at the most recent pipe location
 
-		printf("\n1pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
+				printf("\n1pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
 		fflush(stdout);
 		printf("\n1pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
 		fflush(stdout);
-		char pipe_arg[MAX_ARGS] = {'\0'};
+		char pipe_arg_final[MAX_ARGS] = {'\0'};
 
 		for (k = (pipe_locations[num_pipes-1] + 1); k < num_args; k++)
 		{
-			strcat(pipe_arg, args[k]);
-			strcat(pipe_arg, " ");
+			strcat(pipe_arg_final, args[k]);
+			strcat(pipe_arg_final, " ");
 		}
 
 		printf("\n2pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
@@ -246,7 +244,7 @@ int set_flags()
 		printf("\n2pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
 		fflush(stdout);
 
-		pipe_args[num_pipes] = pipe_arg;
+		pipe_args[num_pipes] = pipe_arg_final;
 		printf("\n3pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
 		fflush(stdout);
 		printf("\n3pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
