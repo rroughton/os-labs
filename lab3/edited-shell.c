@@ -458,6 +458,8 @@ void redirect()
 		printf(args[i]);
 		fflush(stdout);
 		args[i] = NULL;
+		printf(args[i]);
+		fflush(stdout);
 	}
 
 	printf(file_string);
