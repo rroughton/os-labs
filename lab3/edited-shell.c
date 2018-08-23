@@ -190,6 +190,7 @@ int set_flags()
 			// fflush(stdout);
 
 			printf("\npipe_arg: %s", pipe_arg);
+			printf("pipe_args[num_pipes]:%s", pipe_args[num_pipes]);
 			fflush(stdout);
 
 			strcpy(pipe_args[num_pipes], pipe_arg);
