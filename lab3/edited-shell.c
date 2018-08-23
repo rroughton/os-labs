@@ -472,12 +472,12 @@ void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 	if (fork())
 	{
 		close(fd[0]);
-		dup2(fd[1], 1);
+		dup2(fd[1], 0);
 		recursive_piping(rest_of_args);
 		//return;
 	}
 	close (fd[1]);
-	dup2(fd[0], 0);
+	dup2(fd[0], 1);
 	execvp(first_arg[0], first_arg);
 }
 
