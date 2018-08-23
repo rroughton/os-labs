@@ -220,7 +220,6 @@ int set_flags()
 	{
 		int k;
 		i = 0;
-		char pipe_arg[MAX_ARGS] = "";
 		
 		// starts at the most recent pipe location
 
@@ -230,6 +229,7 @@ int set_flags()
 			fflush(stdout);
 		}
 
+		char pipe_arg[MAX_ARGS] = "";
 		for (k = pipe_locations[num_pipes]; k < num_args; k++)
 		{
 			strcat(pipe_arg, args[k]);
