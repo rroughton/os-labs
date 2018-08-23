@@ -225,7 +225,7 @@ int set_flags()
 
 		for(i = 0; i < num_pipes; i++)
 		{
-			printf("pipe_arg at %d: %s", i, pipe_args[i]);
+			printf("\npipe_arg at %d: %s", i, pipe_args[i]);
 			fflush(stdout);
 		}
 
@@ -238,7 +238,7 @@ int set_flags()
 		pipe_args[num_pipes] = pipe_arg;
 		for(i = 0; i < num_pipes+1; i++)
 		{
-			printf("pipe_arg at %d: %s", i, pipe_args[i]);
+			printf("\npipe_arg at %d: %s", i, pipe_args[i]);
 			fflush(stdout);
 		}
 	}
