@@ -450,7 +450,9 @@ void redirect()
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));	
 	}	*/
 
-	int in, out;
+	int in;
+	int out;
+	int i;
   	for (i = redirect_location; i < num_args; i++)
 	{
 		printf(args[i]);
