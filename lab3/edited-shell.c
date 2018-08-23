@@ -173,8 +173,8 @@ int set_flags()
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
-				printf("\nj: %s", j);
-				printf("\ni: %s", i);
+				printf("\nj: %d", j);
+				printf("\ni: %d", i);
 				fflush(stdout);
 				printf("\nPipe_locations[num_pipes:%d", pipe_locations[num_pipes]) ;
 				printf("\nargs[j]: %s", args[j]);
@@ -186,8 +186,8 @@ int set_flags()
 				fflush(stdout);
 			}
 
-			printf("\nj: %s", j);
-			printf("\ni: %s", i);
+			printf("\nj: %d", j);
+			printf("\ni: %d", i);
 			fflush(stdout);
 
 			printf("\npipe_args[num_pipes]: %s", pipe_args[num_pipes]);
