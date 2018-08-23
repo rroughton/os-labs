@@ -473,9 +473,10 @@ void redirect()
 		in = open(file_string, O_RDONLY);
 		dup2(in, 0);
 		close(in);
+
 	} else if (flags[6]) {
-		dup2(out, 1);
 		out = open(file_string, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+		dup2(out, 1);
 		close(out);
 	}
 	execvp(args[0], args);
