@@ -223,6 +223,12 @@ int set_flags()
 		
 		// starts at the most recent pipe location
 
+		for(i = 0; i < num_pipes; i++)
+		{
+			printf("pipe_arg at %d: %s", i, pipe_args[i]);
+			fflush(stdout);
+		}
+
 		for (k = pipe_locations[num_pipes]; k < num_args; k++)
 		{
 			strcat(pipe_arg, args[k]);
