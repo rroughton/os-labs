@@ -436,37 +436,65 @@ void execute_piping()
 			pipe_args_copy[i] = malloc(81);
 			strcpy(pipe_args_copy[i],pipe_args[i]);
 	}
-	for (i = 0; i < (num_pipes+1); i++)
-	{
-		
-		printf("firstLoop i = %d", i);
-		printf(pipe_args_copy[i]);
-		fflush(stdout);
-	}
+
 	recursive_piping(pipe_args_copy);
 }
 
-recursive_piping(char *recursive_pipe_args[MAX_ARGS])
+void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 {
 	int i = 0;
-	for (i = 0; i < (num_pipes+1); i++)
-	{
-		
-		printf("secondLoop i = %d", i);
-		printf(recursive_pipe_args[i]);
-		fflush(stdout);
-	}
+	int fd[2];
+
 	char first_arg[100];
-	char *rest_of_args[80];
-	// if (recursive_pipe_args[1] == NULL)
-	// {
-	// 	if(execvp(recursive_pipe_args[0], args) == -1){
-	// 		printf("\nExecute didn't work");
-	// 		fflush(stdout);		
-	// 		return 0;
-	// 	}
-	// }
+	char *rest_of_args[81] = malloc(81);
+
+	// if its of size 1, base case
+	if (recursive_pipe_args[1] == NULL)
+	{
+		if(execvp(recursive_pipe_args[0], args) == -1){
+			printf("\nExecute didn't work");
+			fflush(stdout);	
+		}
+		return;
+	}
+
+	// recursive case, split args into the first on and the rest of them
+	strcpy(first_arg, recursive_pipe_args[0]);
+	for (i = 0; i < (num_pipes); i++)
+	{
+		rest_of_args[i] = malloc(81);
+		strcpy(rest_of_args[i], recursive_pipe_args[i+1]);
+	}
+	if (pipe(fd) < 0)
+	{
+		printf("\npipe Failure");
+	}
+
+	// parent section, reads file descriptor fd[0]
+	if (fork())
+	{
+		close(fd[0]);
+		dup2(fd[1], 0);
+		recursive_piping(rest_of_args);
+		//return;
+	}
+	close (fd[1]);
+	dup2(fd[0], 1);
+	exec(first_arg);
 }
+
+// function recursive_piping(commands)
+//     if commands is of size 1
+//         exec recursive_pipe_args[0] || die
+//     split recursive_pipe_args into first_arg (first command) remainder_args (the rest of them)
+//     open
+//     if fork 
+//         close input end of pipe
+//         dup output of pipe to stdin
+//         recursive_piping (remainder_args) || die
+//     close output end of pipe
+//     dup input of pipe to stdout
+//     exec first_arg || die
 
 
 // does both output and input redirection
