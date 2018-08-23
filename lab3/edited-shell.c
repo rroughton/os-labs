@@ -179,12 +179,6 @@ int set_flags()
 			}
 		}
 
-		for(i = 0; i < num_pipes; i++)
-		{
-			printf("\npipe_arg at %d: %s", i, pipe_args[i]);
-			fflush(stdout);
-		}
-
 
 		// input
 
@@ -221,6 +215,12 @@ int set_flags()
 			flags[5] = 0;
 		}
 	}
+
+			for(i = 0; i < num_pipes; i++)
+		{
+			printf("\npipe_arg at %d: %s", i, pipe_args[i]);
+			fflush(stdout);
+		}
 
 	if (flags[4])
 	{
