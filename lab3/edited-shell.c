@@ -101,7 +101,7 @@ int main(void)
 	return 0;
 }
 
-// sets flags for special characters in input
+// sets flags for special characters file_desc_in input
 int set_flags()
 {
 	int i = 0;
@@ -154,7 +154,17 @@ int set_flags()
 		if (strcmp(args[i], "|") == 0)
 		{
 			flags[4] = 1;
-			pipe_locations[num_pipes];
+			
+			int j;
+			char pipe_arg[MAX_ARGS] = "";
+			pipe_location[num_pipes] = i;
+			// starts at the most recent pipe location
+			for (j = pipe_locations[num_pipes]; j < i; j++)
+			{
+				strcat(pipe_arg, args[j]);
+				strcat(pipe_arg, " ");
+			}
+			strcpy(pipe_args[num_pipes], pipe_arg);
 			num_pipes++;
 
 		} else {
@@ -167,7 +177,6 @@ int set_flags()
 
 		// input
 
-			
 		if (strcmp(args[i], "<") == 0)
 		{
 			if (flags[5] == 1 || flags[6] == 1) 
@@ -200,6 +209,21 @@ int set_flags()
 		} else {
 			flags[5] = 0;
 		}
+	}
+
+	if (flag[4])
+	{
+		int j;
+		char pipe_arg[MAX_ARGS] = "";
+		pipe_location[num_pipes] = i;
+		// starts at the most recent pipe location
+		for (j = pipe_locations[num_pipes]; j < num_args; j++)
+		{
+			strcat(pipe_arg, args[j]);
+			strcat(pipe_arg, " ");
+		}
+		strcpy(pipe_args[num_pipes], pipe_arg);
+		num_pipes++;
 	}
 	return 1;
 }
@@ -353,6 +377,7 @@ void execute_cd()
 	}
 }
 
+// clears args so array is fresh to be inputted to
 void clear_args()
 {
 	int i = 0;
@@ -363,6 +388,7 @@ void clear_args()
 	num_args = 0;
 }
 
+// clears everything that gets set in a runthrough
 void clear_all()
 {
 	int i = 0;
@@ -388,12 +414,24 @@ void clear_all()
 	redirect_location = 0;
 }
 
+
 void execute_piping()
 {
+	char *[]
+}
 
-	// base case, you're too the left of the left most pipe
-
-	// recursive case, there's another pipe to the left
+recursive_piping(char *[] pipe_args)
+{
+	char first_arg[100];
+	char *rest_of_args[80];
+	if (pipe_args[1] == NULL)
+	{
+		if(execvp(pipe_args[0], args) == -1){
+			printf("\nExecute didn't work");
+			fflush(stdout);		
+			return 0;
+		}
+	}
 
 
 }
@@ -406,8 +444,8 @@ void redirect()
 	
 	pid_t child, wpid;
 	int status;
-	int in;
-	int out;
+	int file_desc_in;
+	int file_desc_out;
 	int i;
 
 	for (i = redirect_location; i < num_args; i++)
@@ -425,17 +463,21 @@ void redirect()
 
 		if (flags[5] == 1)
 		{
-			in = open(file_string, O_RDONLY);
-			dup2(in, 0);
-			close(in);
+			file_desc_in = open(file_string, O_RDONLY);
+			dup2(file_desc_in, 0);
+			close(file_desc_in);
 
 		} else if (flags[6]) {
-			out = open(file_string, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
-			dup2(out, 1);
-			close(out);
+			file_desc_out = open(file_string, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+			dup2(file_desc_out, 1);
+			close(file_desc_out);
 		}
 
-		execvp(args[0], args);
+		if(execvp(args[0], args) == -1){
+			printf("\nExecute didn't work");
+			fflush(stdout);			
+			return 0;
+		}	
 		exit(EXIT_FAILURE);
 	}
 	else{
@@ -444,6 +486,5 @@ void redirect()
 		{
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));	
-	}
-	
+	}	
 }
