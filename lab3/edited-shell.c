@@ -167,29 +167,9 @@ int set_flags()
 				strcat(pipe_arg, " ");
 			}
 
-			// printf("\npipe_args[num_pipes]: %s", pipe_args[num_pipes]);
-			// fflush(stdout);
-
-			printf("\npipe_arg: %s", pipe_arg);
-			printf("\n1pipe_args[num_pipes]:%s", pipe_args[num_pipes]);
-			printf("\nnum_pipes:%d", num_pipes);
-			fflush(stdout);
-
-			pipe_args[0] = "here!";
-			printf("\nHELLO?");
-			fflush(stdout);
-
-			printf("\n2pipe_args[num_pipes]:%s", pipe_args[0]);
-			fflush(stdout);
-
 			pipe_args[num_pipes] = pipe_arg;
-			printf("\npipe_args[num_pipes]:%s", pipe_args[num_pipes]);
-			fflush(stdout);
 			pipe_locations[num_pipes] = i;
 			num_pipes++;
-
-			printf("\nbelow last strcpy");
-			fflush(stdout);
 
 		} else {
 			// don't reset flag just because the one token wasn't a pipe
@@ -235,20 +215,26 @@ int set_flags()
 		}
 	}
 
-	// if (flags[4])
-	// {
-	// 	int j;
-	// 	char pipe_arg_final[MAX_ARGS] = "";
-	// 	pipe_locations[num_pipes] = i;
-	// 	// starts at the most recent pipe location
-	// 	for (j = pipe_locations[num_pipes]; j < num_args; j++)
-	// 	{
-	// 		strcat(pipe_arg_final, args[j]);
-	// 		strcat(pipe_arg_final, " ");
-	// 	}
-	// 	strcpy(pipe_args[num_pipes], pipe_arg_final);
-	// 	num_pipes++;
-	// }
+	if (flags[4])
+	{
+		int j;
+		i = 0;
+		char pipe_arg[MAX_ARGS] = "";
+		
+		// starts at the most recent pipe location
+
+		for (j = pipe_locations[num_pipes]; j < num_args; j++)
+		{
+			strcat(pipe_arg, args[j]);
+			strcat(pipe_arg, " ");
+		}
+
+		pipe_args[num_pipes] = pipe_arg;
+		for(i = 0; i < num_pipes+1; i++)
+		{
+			printf("pipe_arg at %d: %s", i, pipe_args[i]);
+		}
+	}
 	return 1;
 }
 
