@@ -168,8 +168,10 @@ int set_flags()
 			}
 
 			pipe_args[num_pipes] = pipe_arg;
-			printf("pipe_arg %s", pipe_arg);
-			printf("pipe_args[num_pipes] %s", pipe_args[num_pipes]);
+			printf("\npipe_arg %s", pipe_arg);
+			printf("\npipe_args[num_pipes] %s", pipe_args[num_pipes]);
+			printf("\npipe_args[num_pipes] %s", pipe_args[0]);
+			fflush(stdout);
 			fflush(stdout);
 			pipe_locations[num_pipes] = i;
 			num_pipes++;
