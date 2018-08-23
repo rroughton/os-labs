@@ -432,8 +432,14 @@ void execute_piping()
 	int i = 0;
 	for (i = 0; i < 10; i++)
 	{
+		printf("\npipe_args[%d]: %s", i, pipe_args[i]);
+		fflush(stdout);
+	}
+	for (i = 0; i < 10; i++)
+	{
 		pipe_args_copy[i] = pipe_args[i];
 		printf("\npipe_args_copy[%d]: %s", i, pipe_args_copy[i]);
+		fflush(stdout);
 	}
 	//recursive_piping(pipe_args);
 }
