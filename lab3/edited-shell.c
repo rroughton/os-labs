@@ -179,7 +179,7 @@ int set_flags()
 
 			flags[5] = 1;
 			redirect_location = i;
-			strcpy(file_string, args[redirect_location - 1]);
+			strcpy(file_string, args[redirect_location + 1]);
 		} else {
 			flags[5] = 0;
 		}
@@ -403,10 +403,13 @@ void execute_piping()
 // does both output and input redirection
 void redirect()
 {
-	/*
+	
 	pid_t child, wpid;
 	int status;
-	int i = 0;
+	int in;
+	int out;
+	int i;
+
 	for (i = redirect_location; i < num_args; i++)
 	{
 		args[i] = NULL;
@@ -419,29 +422,20 @@ void redirect()
 
 	// go down child path
 	else if(child == 0){
-		if(flags[5]){//Input
-			int file_desc_in = open(file_string, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
-			if (file_desc_in)
-			dup2(file_desc_in, 0);
-			close(file_desc_in);
-			if(execvp(args[0], args) == -1)
-			{
-				printf("\nChild execution failed");	
-			}
+
+		if (flags[5] == 1)
+		{
+			in = open(file_string, O_RDONLY);
+			dup2(in, 0);
+			close(in);
+
+		} else if (flags[6]) {
+			out = open(file_string, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+			dup2(out, 1);
+			close(out);
 		}
 
-		// do output
-		else if(flags[6])
-		{
-			int file_desc_out = open(file_string, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
-			dup2(file_desc_out, 1);
-			close(file_desc_out);
-			if(execvp(args[0], args) == -1)
-			{
-				printf("\nChild execution failed");	
-			}
-		}
-		
+		execvp(args[0], args);
 		exit(EXIT_FAILURE);
 	}
 	else{
@@ -450,35 +444,6 @@ void redirect()
 		{
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));	
-	}	*/
-
-	int in;
-	int out;
-	int i;
-	
-
-  	for (i = redirect_location; i < num_args; i++)
-	{
-		printf(args[i]);
-		fflush(stdout);
-		args[i] = NULL;
-		printf(args[i]);
-		fflush(stdout);
-	}
-
-	printf("\n\n\n******\nfile_string: %s", file_string);
-	fflush(stdout);
-	if (flags[5] == 1)
-	{
-		in = open(file_string, O_RDONLY);
-		dup2(in, 0);
-		close(in);
-
-	} else if (flags[6]) {
-		out = open(file_string, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
-		dup2(out, 1);
-		close(out);
-	}
-	execvp(args[0], args);
+	}	
 	
 }
