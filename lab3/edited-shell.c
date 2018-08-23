@@ -169,6 +169,8 @@ int set_flags()
 
 			pipe_args[num_pipes] = pipe_arg;
 			pipe_locations[num_pipes] = i;
+			printf("\npipe location at num_pipes at %d", pipe_locations[num_pipes]);
+			fflush(stdout);
 			num_pipes++;
 
 		} else {
