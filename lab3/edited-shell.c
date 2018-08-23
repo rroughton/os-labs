@@ -229,14 +229,14 @@ int set_flags()
 			fflush(stdout);
 		}
 
-		char pipe_arg[MAX_ARGS] = "";
+		char pipe_arg_final[MAX_ARGS] = "";
 		for (k = pipe_locations[num_pipes]; k < num_args; k++)
 		{
-			strcat(pipe_arg, args[k]);
-			strcat(pipe_arg, " ");
+			strcat(pipe_arg_final, args[k]);
+			strcat(pipe_arg_final, " ");
 		}
 
-		pipe_args[num_pipes] = pipe_arg;
+		pipe_args[num_pipes] = pipe_arg_final;;
 		for(i = 0; i < num_pipes+1; i++)
 		{
 			printf("\npipe_arg at %d: %s", i, pipe_args[i]);
