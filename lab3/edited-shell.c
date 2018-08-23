@@ -370,7 +370,7 @@ void clear_all()
 	{
 		//history_list[i] == NULL;
 		//background_element[i] == NULL;
-		//flags[i] = 0;
+		flags[i] = 0;
 	}
 
 	for (i = 0; i < MAX_ARGS; i++)
@@ -444,6 +444,6 @@ void redirect()
 		{
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));	
-	}	
+	}
 	
 }
