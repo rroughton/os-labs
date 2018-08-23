@@ -244,22 +244,11 @@ int set_flags()
 		strcpy(pipe_args[num_pipes],pipe_arg_final);
 		
 	}
-
-	for (i = 0; i < 10; i++)
-	{
-		printf("\npipe_args[%d]: %s", i, pipe_args[i]);
-	}
-	return 1;
 }
 
 int run_args(void)
 {
 	int i = 0;
-	for (i = 0; i < 10; i++)
-	{
-		printf("\nrn_args pipe_args[%d]: %s", i, pipe_args[i]);
-	}
-
 	if (flags[3]) // do cd
 	{
 		execute_cd();
@@ -449,34 +438,34 @@ void clear_all()
 
 void execute_piping()
 {
-	char*pipe_args_copy[10];
+	char*pipe_args_copy[80];
 	int i = 0;
-	for (i = 0; i < 10; i++)
+
+	for (i = 0; i < 80; i++)
 	{
-		printf("\npipe_args[%d]: %s", i, pipe_args[i]);
-		fflush(stdout);
+		pipes_args_copy[i] = malloc(81);
+		strcpy(pipe_args_copy[i],pipe_args[i]);
 	}
-	for (i = 0; i < 10; i++)
-	{
-		pipe_args_copy[i] = pipe_args[i];
-		printf("\npipe_args_copy[%d]: %s", i, pipe_args_copy[i]);
-		fflush(stdout);
-	}
-	//recursive_piping(pipe_args);
+	recursive_piping(pipe_args_copy);
 }
 
 recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 {
+	int i = 0;
+	for (i = 0; i < 80; i++)
+	{
+		printf(recursive_pipe_args[i]);
+	}
 	char first_arg[100];
 	char *rest_of_args[80];
-	if (recursive_pipe_args[1] == NULL)
-	{
-		if(execvp(recursive_pipe_args[0], args) == -1){
-			printf("\nExecute didn't work");
-			fflush(stdout);		
-			return 0;
-		}
-	}
+	// if (recursive_pipe_args[1] == NULL)
+	// {
+	// 	if(execvp(recursive_pipe_args[0], args) == -1){
+	// 		printf("\nExecute didn't work");
+	// 		fflush(stdout);		
+	// 		return 0;
+	// 	}
+	// }
 }
 
 
