@@ -161,7 +161,7 @@ int set_flags()
 
 			int j;
 			char pipe_arg[MAX_ARGS] = "";
-			pipe_locations[num_pipes] = i;
+			
 			// starts at the most recent pipe location
 
 			printf("\nAbove for loop");
@@ -194,6 +194,7 @@ int set_flags()
 			fflush(stdout);
 
 			strcpy(pipe_args[num_pipes], pipe_arg);
+			pipe_locations[num_pipes] = i;
 			num_pipes++;
 
 			printf("\nbelow last strcpy");
