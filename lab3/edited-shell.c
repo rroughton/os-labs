@@ -155,35 +155,16 @@ int set_flags()
 		if (strcmp(args[i], "|") == 0)
 		{
 			flags[4] = 1;
-			
-			printf("\nJ hasn't been set");
-			fflush(stdout);
 
 			int j;
 			char pipe_arg[MAX_ARGS] = "";
 			
 			// starts at the most recent pipe location
 
-			printf("\nAbove for loop");
-			printf("\nnum_pipes:%d", num_pipes );
-				printf("\nPipe_locations[num_pipes:%d", pipe_locations[num_pipes]) ;
-				printf("\n ") ;
-
-			fflush(stdout);
-
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
-				printf("\nj: %d", j);
-				printf("\ni: %d", i);
-				fflush(stdout);
-				printf("\nPipe_locations[num_pipes:%d", pipe_locations[num_pipes]) ;
-				printf("\nargs[j]: %s", args[j]);
-				fflush(stdout);
 				strcat(pipe_arg, args[j]);
 				strcat(pipe_arg, " ");
-
-				printf("\n1pipe_arg: %s", pipe_arg);
-				fflush(stdout);
 			}
 
 			// printf("\npipe_args[num_pipes]: %s", pipe_args[num_pipes]);
@@ -194,17 +175,11 @@ int set_flags()
 			printf("\nnum_pipes:%d", num_pipes);
 			fflush(stdout);
 
-			//strcpy(pipe_args[0], "here!");
+			pipe_args[0] = "here!";
 			printf("\nHELLO?");
 			fflush(stdout);
 
 			printf("\n2pipe_args[num_pipes]:%s", pipe_args[0]);
-			fflush(stdout);
-
-			printf("\nHELLO?");
-			fflush(stdout);
-			
-			printf("\n3pipe_args[0]: %s", pipe_args[0]);
 			fflush(stdout);
 
 			strcpy(pipe_args[num_pipes], pipe_arg);
