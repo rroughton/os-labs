@@ -167,13 +167,16 @@ int set_flags()
 
 		// input
 
-		if (flags[5] == 1 || flags[6] == 1) {
-			printf("\nToo many redirects");
-			fflush(stdout);
-			return 1;
-		} 	
-		else if (strcmp(args[i], "<") == 0)
+			
+		if (strcmp(args[i], "<") == 0)
 		{
+			if (flags[5] == 1 || flags[6] == 1) 
+			{
+				printf("\nToo many redirects");
+				fflush(stdout);
+				return 1;
+			} 	
+
 			flags[5] = 1;
 			redirect_location = i;
 		} else {
@@ -182,20 +185,20 @@ int set_flags()
 
 		// output
 
-		if (flags[5] == 1 || flags[6] == 1) {
-			printf("\nToo many redirects");
-			fflush(stdout);
-			return 1;
-		} 
-		else if (strcmp(args[i], ">") == 0)
+
+		if (strcmp(args[i], ">") == 0)
 		{
+			if (flags[5] == 1 || flags[6] == 1) {
+				printf("\nToo many redirects");
+				fflush(stdout);
+				return 1;
+			}
 			flags[6] = 1;
 			redirect_location = i;
 		} else {
 			flags[5] = 0;
 		}
 	}
-
 	return 1;
 }
 
