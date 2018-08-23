@@ -43,7 +43,7 @@ int pipe_locations[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int num_pipes = 0;
 int redirect_location;
 char file_string[MAX_LINE];
-char *pipe_args[MAX_ARGS];
+char pipe_args[MAX_ARGS][MAX_ARGS];
 
 int set_flags(void);
 int run_args(void);
@@ -165,7 +165,7 @@ int set_flags()
 
 				printf("\nhere2");
 			fflush(stdout);
-			strcpy(pipe_arg, "asd");
+			strcpy(pipe_arg, "avd");
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
