@@ -172,9 +172,13 @@ int set_flags()
 				strcat(pipe_arg, args[j]);
 				strcat(pipe_arg, " ");
 
-				printf("\npipe_arg: %s", pipe_arg);
+				printf("\n1pipe_arg: %s", pipe_arg);
 				fflush(stdout);
 			}
+
+			printf("\nj: %s", j);
+			printf("\ni: %s", i);
+			fflush(stdout);
 
 			printf("\npipe_args[num_pipes]: %s", pipe_args[num_pipes]);
 			fflush(stdout);
