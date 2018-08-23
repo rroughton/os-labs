@@ -413,6 +413,11 @@ void redirect()
 
 	pid_t child, wpid;
 	int status;
+	int i = 0;
+	for (i = redirection_location + 1; i < num_args; i++)
+	{
+		args[i] = NULL;
+	}
 	
 	child = fork();
 	if(child == -1){
@@ -426,22 +431,26 @@ void redirect()
 			int file_desc_in = open(file_string, O_RDONLY, 0);
 			dup2(file_desc_in, STDIN_FILENO);
 			close(file_desc_in);
+			if(execvp(args[0], args) == -1)
+			{
+				printf("\nChild execution failed");	
+			}
 		}
 
 		// do output
 		else if(flags[6])
 		{
 			printf("\nOutputFile?:%s", file_string);
-			int file_desc_out = creat(file_string, 0644);
-			dup2(file_desc_out, STDOUT_FILENO);
+			int file_desc_out = open(file_string, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+			dup2(file_desc_out, 1);
+			dup2(file_desc_out, 2);
 			close(file_desc_out);
-			
+			if(execvp(args[0], args) == -1)
+			{
+				printf("\nChild execution failed");	
+			}
 		}
-
-		if(execvp(args[0], args) == -1)
-		{
-			printf("\nChild execution failed");	
-		}
+		
 		exit(EXIT_FAILURE);
 	}
 	else{
