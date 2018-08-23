@@ -160,10 +160,14 @@ int set_flags()
 			char pipe_arg[MAX_ARGS] = "";
 			pipe_locations[num_pipes] = i;
 			// starts at the most recent pipe location
+
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
 				strcat(pipe_arg, args[j]);
 				strcat(pipe_arg, " ");
+
+				printf(pipe_args);
+				fflush(stdout);
 			}
 			strcpy(pipe_args[num_pipes], pipe_arg);
 			num_pipes++;
@@ -238,7 +242,7 @@ int run_args(void)
 
 	// do piping
 	} else if (flags[4]){
-
+		start_pipe();
 		execute_piping();
 		return 1;
 
@@ -487,4 +491,81 @@ void redirect()
 			wpid = waitpid(child, &status, WUNTRACED);
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));	
 	}	
+}
+
+int start_pipe()
+{
+	int insert_i = 0;
+	int command_i = 0;
+	int args_i=0;
+	
+	char * commands[num_pipes+1][MAX_ARGS];
+
+	for(command_i = 0; command_i < num_pipes+1; command_i++)
+	{
+
+		while((args[args_i] != NULL) && (strcmp(args[args_i], "|") != 0))
+		{
+			commands[command_i][insert_i] = args[args_i];
+			
+			insert_i++;
+			args_i++;
+		}
+		commands[command_i][insert_i] = NULL;
+
+		insert_i = 0;
+	}
+	return execute_pipes_test(commands);
+}
+
+int execute_pipes_test(char *** commands)
+{
+	int last_command = num_pipes+1;
+	int i = 0;
+	
+	int input = 0;
+	int output = 1;
+
+	pid_t pid;
+	
+	int pipefds[2];
+
+	if((pid = fork()) == 0){
+		
+		dup2(pipefds[1], output);
+		close(pipefds[1]);
+		execvp(commands[0][0], commands[0]);
+	}
+
+	input = pipefds[0];
+	
+	for(i = 1; i < last_command; i++)
+	{
+
+		if((pid = fork()) == 0)
+		{
+			if(input != 0)
+			{
+				dup2(input, 0);
+				close(input);
+			}
+			
+			if(output != 1)
+			{
+				dup2(output, 1);
+				close(output);
+			}
+			execvp(commands[i][0], commands[i]);
+		}
+		close(pipefds[1]);
+		input = pipefds[0];
+	}
+
+	if(input != 0)
+	{
+		dup2(input, 0);	
+	}
+
+	execvp(commands[last_command][0], commands[last_command]);
+	return 1;
 }
