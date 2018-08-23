@@ -242,7 +242,7 @@ int run_args(void)
 
 	// do piping
 	} else if (flags[4]){
-		start_pipe();
+		setup_pipe();
 		execute_piping();
 		return 1;
 
@@ -493,7 +493,7 @@ void redirect()
 	}	
 }
 
-int start_pipe()
+int setup_pipe()
 {
 	int i = 0;
 	int j = 0;
@@ -521,36 +521,35 @@ int start_pipe()
 
 int execute_pipes_test(char *** pipe_arguments)
 {
-	int last_command = num_pipes+1;
+	int last_pipe_argument = num_pipes+1;
 	int i = 0;
-	
-	int input = 0;
 	int output = 1;
+	int input = 0;
 
 	pid_t pid;
-	
-	int pipefds[2];
+	int fds[2];
 
 	if((pid = fork()) == 0){
 		
-		dup2(pipefds[1], output);
-		close(pipefds[1]);
+		dup2(fds[1], output);
+		close(fds[1]);
 		execvp(pipe_arguments[0][0], pipe_arguments[0]);
 	}
 
-	input = pipefds[0];
-	
-	for(i = 1; i < last_command; i++)
+	input = fds[0];
+	for(i = 1; i < last_pipe_argument; i++)
 	{
-
+		// if child process
 		if((pid = fork()) == 0)
 		{
+			// if the input has been set
 			if(input != 0)
 			{
 				dup2(input, 0);
 				close(input);
 			}
 
+			// if the output has been set
 			if(output != 1)
 			{
 				dup2(output, 1);
@@ -558,8 +557,8 @@ int execute_pipes_test(char *** pipe_arguments)
 			}
 			execvp(pipe_arguments[i][0], pipe_arguments[i]);
 		}
-		close(pipefds[1]);
-		input = pipefds[0];
+		close(fds[1]);
+		input = fds[0];
 	}
 
 	if(input != 0)
@@ -567,6 +566,6 @@ int execute_pipes_test(char *** pipe_arguments)
 		dup2(input, 0);	
 	}
 
-	execvp(pipe_arguments[last_command][0], pipe_arguments[last_command]);
+	execvp(pipe_arguments[last_pipe_argument][0], pipe_arguments[last_pipe_argument]);
 	return 1;
 }
