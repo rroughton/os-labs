@@ -39,7 +39,7 @@ int num_args = 0;
 int flags[10]; // 0 = History, 1 = Background, 2 = echo, 3 = cd, 4 = piping, 5 = input, 6 = output
 char *done_strs[MAX_ARGS] = {};
 int num_done_strs = 0;
-int pipe_locations[MAX_ARGS];
+int pipe_locations[MAX_ARGS] = {0};
 int num_pipes = 0;
 int redirect_location;
 char file_string[MAX_LINE];
