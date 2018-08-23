@@ -43,7 +43,7 @@ int pipe_locations[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int num_pipes = 0;
 int redirect_location;
 char file_string[MAX_LINE];
-char pipe_args[MAX_ARGS][MAX_ARGS];
+char *pipe_args[MAX_ARGS];
 
 int set_flags(void);
 int run_args(void);
@@ -175,6 +175,7 @@ int set_flags()
 
 			printf(pipe_arg);
 			fflush(stdout);
+			pipe_args[num_pipes] = malloc(81);
 			strcpy(pipe_args[num_pipes], pipe_arg);
 			printf("\nhere3");
 			fflush(stdout);
