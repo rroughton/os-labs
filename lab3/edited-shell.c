@@ -245,6 +245,11 @@ int set_flags()
 
 int run_args(void)
 {
+	for (i = 0; i < 10; i++)
+	{
+		printf("\nrn_args pipe_args[%d]: %s", i, pipe_args[i]);
+	}
+
 	if (flags[3]) // do cd
 	{
 		execute_cd();
