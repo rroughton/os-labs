@@ -193,6 +193,8 @@ int set_flags()
 			fflush(stdout);
 
 			strcpy(pipe_args[num_pipes], pipe_arg);
+			printf("pipe_args[num_pipes]:%s", pipe_args[num_pipes]);
+			fflush(stdout);
 			pipe_locations[num_pipes] = i;
 			num_pipes++;
 
