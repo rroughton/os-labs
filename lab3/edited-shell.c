@@ -362,9 +362,9 @@ void clear_all()
 	int i = 0;
 	for (i = 0; i < 10; i++)
 	{
-		history_list[i] == NULL;
-		background_element[i] == NULL;
-		flags[i] = 0;
+		//history_list[i] == NULL;
+		//background_element[i] == NULL;
+		//flags[i] = 0;
 	}
 
 	for (i = 0; i < MAX_ARGS; i++)
