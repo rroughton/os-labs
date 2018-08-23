@@ -165,11 +165,12 @@ int set_flags()
 			// starts at the most recent pipe location
 
 			printf("\nAbove for loop");
+			printf("\nnum_pipes:%d", num_pipes );
 			fflush(stdout);
 
 			for (j = pipe_locations[num_pipes]; j < i; j++)
 			{
-				printf("\nPipe_locations[num_pipes:%s", pipe_locations[num_pipes]) ;
+				printf("\nPipe_locations[num_pipes:%d", pipe_locations[num_pipes]) ;
 				printf("\nargs[j]: %s", args[j]);
 				fflush(stdout);
 				strcat(pipe_arg, args[j]);
