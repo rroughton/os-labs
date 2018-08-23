@@ -414,7 +414,7 @@ void redirect()
 	pid_t child, wpid;
 	int status;
 	int i = 0;
-	for (i = redirection_location + 1; i < num_args; i++)
+	for (i = redirect_location + 1; i < num_args; i++)
 	{
 		args[i] = NULL;
 	}
