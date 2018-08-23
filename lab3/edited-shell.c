@@ -39,7 +39,7 @@ int num_args = 0;
 int flags[10]; // 0 = History, 1 = Background, 2 = echo, 3 = cd, 4 = piping, 5 = input, 6 = output
 char *done_strs[MAX_ARGS] = {};
 int num_done_strs = 0;
-int pipe_locations[MAX_ARGS] = {0};
+int pipe_locations[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int num_pipes = 0;
 int redirect_location;
 char file_string[MAX_LINE];
@@ -426,13 +426,14 @@ void clear_all()
 		//history_list[i] == NULL;
 		//background_element[i] == NULL;
 		flags[i] = 0;
+		pipe_locations[i] = 0;
 	}
 
 	for (i = 0; i < MAX_ARGS; i++)
 	{
 		args[i] = NULL;
 		done_strs[i] = NULL;
-		pipe_locations[i] = 0;
+		
 	}
 
 	num_background = 0;
