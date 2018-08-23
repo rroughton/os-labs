@@ -43,7 +43,7 @@ int pipe_locations[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int num_pipes = 0;
 int redirect_location;
 char file_string[MAX_LINE];
-char *pipe_args[MAX_ARGS];
+char *pipe_args[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 int set_flags(void);
 int run_args(void);
@@ -430,6 +430,8 @@ void clear_all()
 		//background_element[i] == NULL;
 		flags[i] = 0;
 		pipe_locations[i] = 0;
+		pipe_args[i] = 0;
+
 	}
 
 	for (i = 0; i < MAX_ARGS; i++)
