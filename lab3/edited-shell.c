@@ -440,12 +440,10 @@ void execute_piping()
 
 	recursive_piping(pipe_args_copy);
 }
-
 void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 {
 	int i = 0;
 	int fd[2];
-
 	char *first_arg[2] = {"", NULL};
 	char *rest_of_args[81];
 
@@ -470,32 +468,59 @@ void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
 	{
 		printf("\npipe Failure");
 	}
-
 	// parent section, reads file descriptor fd[0]
 	if (fork())
 	{
 		close(fd[0]);
-		dup2(fd[1], 0);
+		dup2(fd[1], 1);
 		recursive_piping(rest_of_args);
 		//return;
 	}
 	close (fd[1]);
-	dup2(fd[0], 1);
+	dup2(fd[0], 0);
 	execvp(first_arg[0], first_arg);
 }
 
-// function recursive_piping(commands)
-//     if commands is of size 1
-//         exec recursive_pipe_args[0] || die
-//     split recursive_pipe_args into first_arg (first command) remainder_args (the rest of them)
-//     open
-//     if fork 
-//         close input end of pipe
-//         dup output of pipe to stdin
-//         recursive_piping (remainder_args) || die
-//     close output end of pipe
-//     dup input of pipe to stdout
-//     exec first_arg || die
+// void recursive_piping(char *recursive_pipe_args[MAX_ARGS])
+// {
+// 	int i = 0;
+// 	int fd[2];
+// 	char *first_arg[2] = {"", NULL};
+// 	char *rest_of_args[81];
+
+// 	// if its of size 1, base case
+// 	if (recursive_pipe_args[1] == NULL)
+// 	{
+// 		if(execvp(recursive_pipe_args[0], recursive_pipe_args) == -1){
+// 			printf("\nExecute didn't work");
+// 			fflush(stdout);	
+// 		}
+// 		return;
+// 	}
+
+// 	// recursive case, split args into the first on and the rest of them
+// 	first_arg[0] = recursive_pipe_args[0];
+// 	for (i = 0; i < (num_pipes); i++)
+// 	{
+// 		rest_of_args[i] = malloc(81);
+// 		strcpy(rest_of_args[i], recursive_pipe_args[i+1]);
+// 	}
+// 	if (pipe(fd) < 0)
+// 	{
+// 		printf("\npipe Failure");
+// 	}
+// 	// parent section, reads file descriptor fd[0]
+// 	if (fork())
+// 	{
+// 		close(fd[0]);
+// 		dup2(fd[1], 0);
+// 		recursive_piping(rest_of_args);
+// 		//return;
+// 	}
+// 	close (fd[1]);
+// 	dup2(fd[0], 1);
+// 	execvp(first_arg[0], first_arg);
+// }
 
 
 // does both output and input redirection
@@ -547,80 +572,3 @@ void redirect()
 		} while(!WIFEXITED(status) && !WIFSIGNALED(status));	
 	}	
 }
-
-// int setup_pipe()
-// {
-// 	int i = 0;
-// 	int j = 0;
-// 	int k=0;
-	
-// 	char * pipe_arguments[num_pipes+1][MAX_ARGS];
-
-// 	for(j = 0; j < num_pipes+1; j++)
-// 	{
-// 		while((args[k] != NULL))
-// 		{
-// 			if (strcmp(args[k], "|") != 0)
-// 			{
-// 				pipe_arguments[j][i] = args[k];	
-// 				i++;
-// 				k++;
-// 			}
-// 		}
-// 		pipe_arguments[j][i] = NULL;
-
-// 		i = 0;
-// 	}
-// 	return execute_pipes_test(pipe_arguments);
-// }
-
-// int execute_pipes_test(char *** pipe_arguments)
-// {
-// 	int last_pipe_argument = num_pipes+1;
-// 	int i = 0;
-// 	int output = 1;
-// 	int input = 0;
-
-// 	pid_t pid;
-// 	int fds[2];
-
-// 	if((pid = fork()) == 0){
-		
-// 		dup2(fds[1], output);
-// 		close(fds[1]);
-// 		execvp(pipe_arguments[0][0], pipe_arguments[0]);
-// 	}
-
-// 	input = fds[0];
-// 	for(i = 1; i < last_pipe_argument; i++)
-// 	{
-// 		// if child process
-// 		if((pid = fork()) == 0)
-// 		{
-// 			// if the input has been set
-// 			if(input != 0)
-// 			{
-// 				dup2(input, 0);
-// 				close(input);
-// 			}
-
-// 			// if the output has been set
-// 			if(output != 1)
-// 			{
-// 				dup2(output, 1);
-// 				close(output);
-// 			}
-// 			execvp(pipe_arguments[i][0], pipe_arguments[i]);
-// 		}
-// 		close(fds[1]);
-// 		input = fds[0];
-// 	}
-
-// 	if(input != 0)
-// 	{
-// 		dup2(input, 0);	
-// 	}
-
-// 	execvp(pipe_arguments[last_pipe_argument][0], pipe_arguments[last_pipe_argument]);
-// 	return 1;
-// }
