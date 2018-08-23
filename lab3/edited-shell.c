@@ -40,6 +40,7 @@ int num_done_strs = 0;
 int pipe_locations[MAX_ARGS];
 int num_pipes = 0;
 int redirect_location;
+char file_string[MAX_LINE];
 
 int set_flags(void);
 int run_args(void);
@@ -52,6 +53,7 @@ int run_child(void);
 void clear_args(void);
 void execute_cd(void);
 void clear_all(void);
+void redirect(void)
 
 int main(void)
 {
@@ -341,50 +343,6 @@ void execute_cd()
 	}
 }
 
-int redirect(int option, char * filename){
-
-	pid_t child, wpid;
-	int status;
-	
-	child = fork();
-	if(child == -1){
-		printf("Fork failed");
-	}
-
-	// child path
-	else if(child == 0){
-		if(option == 1){//Input
-			printf("\nInputFile?:%s", filename);
-			int fdi = open(filename, O_RDONLY, 0);
-			dup2(fdi, STDIN_FILENO);
-			close(fdi);
-
-		}
-		else if(option ==2){//Output
-			printf("\nOutputFile?:%s", filename);
-			int fdo = creat(filename, 0644);
-			dup2(fdo, STDOUT_FILENO);
-			close(fdo);
-			
-		}
-
-		if(execvp(args[0], args) == -1){
-			printf("\nChildBroke");			
-			return 0;
-		}
-		exit(EXIT_FAILURE);
-	}
-	else{
-		
-		do{
-			wpid = waitpid(child, &status, WUNTRACED);
-		}while(!WIFEXITED(status) && !WIFSIGNALED(status));	
-	}		
-	
-	return 1;
-	
-}
-
 void clear_args()
 {
 	int i = 0;
@@ -423,6 +381,11 @@ void clear_all()
 void execute_piping()
 {
 
+	// base case, you're too the left of the left most pipe
+
+	// recursive case, there's another pipe to the left
+
+
 }
 
 void execute_input_redirect()
@@ -433,4 +396,47 @@ void execute_input_redirect()
 void execute_output_redirect()
 {
 
+}
+
+void redirect()
+{
+
+	pid_t child, wpid;
+	int status;
+	
+	child = fork();
+	if(child == -1){
+		printf("Fork Error");
+	}
+
+	// go down child path
+	else if(child == 0){
+		if(flags[5]){//Input
+			printf("\nInputFile?:%s", file_string);
+			int file_desc_in = open(file_string, O_RDONLY, 0);
+			dup2(file_desc_in, STDIN_FILENO);
+			close(file_desc_in);
+
+		}
+		else if(flags[6]){//Output
+			printf("\nOutputFile?:%s", file_string);
+			int file_desc_out = creat(file_string, 0644);
+			dup2(file_desc_out, STDOUT_FILENO);
+			close(file_desc_out);
+			
+		}
+
+		if(execvp(args[0], args) == -1){
+			printf("\nChild execution failed");	
+		}
+		exit(EXIT_FAILURE);
+	}
+	else{
+		// parent will always wait for child to finish
+		do
+		{
+			wpid = waitpid(child, &status, WUNTRACED);
+		} while(!WIFEXITED(status) && !WIFSIGNALED(status));	
+	}		
+	
 }
