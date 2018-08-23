@@ -182,6 +182,9 @@ int set_flags()
 			strcpy(pipe_args[num_pipes], pipe_arg);
 			num_pipes++;
 
+			printf("below last strcpy");
+			fflush(stdout);
+
 		} else {
 			// don't reset flag just because the one token wasn't a pipe
 			if (flags[4] != 1)
