@@ -94,11 +94,7 @@ int main(void)
 		num_args = i;
 
 		should_run = set_flags();
-		for (i = 0; i < 10; i++)
-	{
-		pipe_args_copy[i] = pipe_args[i];
-		printf("\nmain pipe_args_copy[%d]: %s", i, pipe_args_copy[i]);
-	}
+
 		if (should_run)
 		{
 			run_args();
@@ -162,7 +158,7 @@ int set_flags()
 			flags[4] = 1;
 
 			int j;
-			char pipe_arg[MAX_ARGS] = "";
+			char pipe_arg[MAX_ARGS] = {'\0'};
 			
 			// starts at the most recent pipe location
 
