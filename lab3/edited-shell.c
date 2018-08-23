@@ -238,6 +238,11 @@ int set_flags()
 			strcat(pipe_arg_final, " ");
 		}
 
+				printf("pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
+		fflush(stdout);
+		printf("pipe_args[num_pipes]: %s", pipe_args[num_pipes]);
+		fflush(stdout);
+		
 		pipe_args[num_pipes] = pipe_arg_final;
 		printf("pipe_args[num_pipes-1]: %s", pipe_args[num_pipes-1]);
 		fflush(stdout);
