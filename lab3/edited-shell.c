@@ -195,13 +195,13 @@ int set_flags()
 			fflush(stdout);
 
 			//strcpy(pipe_args[0], "here!");
-			printf("HELLO?");
+			printf("\mHELLO?");
 			fflush(stdout);
 
-			printf("\npipe_args[num_pipes]:%s", pipe_args[num_pipes]);
+			printf("\npipe_args[num_pipes]:%s", pipe_args[0]);
 			fflush(stdout);
 
-			printf("HELLO?");
+			printf("\nHELLO?");
 			fflush(stdout);
 			
 			printf("pipe_args[0]: %s", pipe_args[0]);
