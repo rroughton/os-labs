@@ -12,8 +12,8 @@ Thursday Lab Section
 
 int is_num(char dig);
 void * row_check(void * arg);
-void * col_check(void * arg)
-void * grid_check(void * arg)
+void * col_check(void * arg);
+void * grid_check(void * arg);
 
 // parameters to go to thread
 typedef struct{
